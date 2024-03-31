@@ -1,135 +1,303 @@
+// Navbar.js
+
 "use client";
-
+import { useEffect, useState } from "react";
+import { FaBars } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+// import Cookies from 'js-cookie';
+// import useLang from '@/store/lang/useLang';
 
-export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(true);
+
+  // const lang = props.lang;
+
+  const router = useRouter();
+
+  const pathname = usePathname();
+
+  // const storage = new LocalStorage('./scratch')
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  useEffect(() => {
+    if (pathname !== "/home" && pathname !== "/") {
+      return setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+
+    const handleScroll = () => {
+      if (typeof window !== "undefined") {
+        const scrollPosition = window.scrollY;
+        if (scrollPosition > 0) {
+          setIsScrolled(true);
+        } else {
+          setIsScrolled(false);
+        }
+      }
+    };
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [pathname]);
 
   return (
-    <nav className="flex-no-wrap relative flex w-full items-center justify-between bg-zinc-50 py-2 shadow-dark-mild dark:bg-neutral-700 lg:flex-wrap lg:justify-start lg:py-4">
-      <div className="flex w-full flex-wrap items-center justify-between px-3">
-        <button
-          className="block border-0 bg-transparent px-2 text-black/50 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
-          type="button"
-          data-twe-collapse-init
-          data-twe-target="#navbarSupportedContent1"
-          aria-controls="navbarSupportedContent1"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="[&>svg]:w-7 [&>svg]:stroke-black/50 dark:[&>svg]:stroke-neutral-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-
-        <div
-          className="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
-          id="navbarSupportedContent1"
-          data-twe-collapse-item
-        >
-          <a
-            className="mb-4 me-5 ms-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
-            href="#"
-          >
+    <nav
+      className={`mx-auto max-w-full fixed top-0 ${
+        isMenuOpen ? "h-full" : ""
+      } left-0 right-0 z-[15] transition-all duration-300 ${
+        isScrolled
+          ? "w-full bg-white text-primary"
+          : "bg-white w-11/12 mt-5 rounded-lg sm:rounded-lg md:rounded-lg xl:rounded-full"
+      }`}
+    >
+      <div className="container mx-auto py-5">
+        <div className="flex justify-between lg:justify-around mx-5">
+          {/* <div className={`text-center ml-2 cursor-pointer`}>
             <Image
-              src="https://tecdn.b-cdn.net/img/logo/te-transparent-noshadows.webp"
-              height={15}
-              width={15}
-              alt="Kerumah Logo"
+              onClick={() => router.push("/home")}
+              src={"/assets/image/logo.svg"}
+              width={70}
+              height={70}
+              alt="test"
             />
-          </a>
-          <ul
-            className="list-style-none w-full justify-center items-center flex flex-col lg:flex-row"
-            data-twe-navbar-nav-ref
-          >
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <a
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                href="#"
-                data-twe-nav-link-ref
-              >
-                Dashboard
-              </a>
-            </li>
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <a
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                href="#"
-                data-twe-nav-link-ref
-              >
-                Team
-              </a>
-            </li>
-            <li className="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <a
-                className="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                href="#"
-                data-twe-nav-link-ref
-              >
-                Projects
-              </a>
-            </li>
-          </ul>
-        </div>
+          </div> */}
 
-        <div className="relative flex items-center">
-          <div className="relative">
+          <div
+            className={`text-center lg-inline-flex mt-1 hidden lg:flex font-semibold text-pantoneA`}
+          >
+            <p
+              className="text-xs mr-2 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
+              onClick={() => router.push("/company")}
+            >
+              Company
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
+            </p>
+            <p
+              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
+              onClick={() => router.push("/brands")}
+            >
+              Brands
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
+            </p>
+            <p
+              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
+              onClick={() => router.push("/sustainability")}
+            >
+              Sustainability
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
+            </p>
+            <p
+              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
+              onClick={() => router.push("/investors")}
+            >
+              Investors
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
+            </p>
+            <p
+              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
+              onClick={() => router.push("/news-and-event")}
+            >
+              News & Event
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
+            </p>
+            <p
+              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
+              onClick={() => router.push("/blog")}
+            >
+              Blog
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
+            </p>
+            <p
+              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
+              onClick={() => router.push("/career")}
+            >
+              Career
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
+            </p>
+            <p
+              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
+              onClick={() => router.push("/international-business")}
+            >
+              Internation Business
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
+            </p>
+            <p
+              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
+              onClick={() => router.push("/contact-us")}
+            >
+              Contact Us
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
+            </p>
+          </div>
+
+          <div className="text-center hidden lg:flex">
+            <div className="inline pr-3">
+              <div className={`bg-[#F4F5FB] rounded-full p-1 py-2 inline`}>
+                {pathname !== "/international-business" ? (
+                  <div className="inline">
+                    <p
+                      className={`text-xs inline ${"text-yellow-500"} px-2 border-r-[1px] border-yellow-500 cursor-pointer`}
+                    >
+                      ID
+                    </p>
+                    <p
+                      className={`text-xs inline ${"text-yellow-500"} px-2 border-yellow-500 cursor-pointer`}
+                    >
+                      EN
+                    </p>
+                  </div>
+                ) : (
+                  <div className="inline">
+                    <p className="text-xs inline text-yellow-500 px-2 border-r-2 cursor-pointer">
+                      EN
+                    </p>
+                    <p className="text-xs inline text-primary px-2 border-r-2 cursor-pointer">
+                      CH
+                    </p>
+                    <p className="text-xs inline text-primary px-2 border-r-2 cursor-pointer">
+                      JP
+                    </p>
+                    <p className="text-xs inline text-primary px-2 cursor-pointer">
+                      TH
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="inline pl-3 border-l-2">
+              <div className={`inline p-2 rounded-full bg-[#F4F5FB]`}>
+                <svg
+                  className="inline-block"
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0px"
+                  y="0px"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 50 50"
+                >
+                  <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:hidden">
             <button
-              className="flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`focus:outline-none ${
+                isScrolled ? "text-primary" : "text-white"
+              }`}
+              onClick={toggleMenu}
             >
-              <Image
-                src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg"
-                className="rounded-full"
-                height={30}
-                width={30}
-                alt=""
-              />
+              {isMenuOpen ? <AiOutlineClose /> : <FaBars />}
             </button>
-            <ul
-              className={`absolute z-[1000] ${
-                isMenuOpen ? "block" : "hidden"
-              } float-left right-0 m-0 min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark`}
-            >
-              <li>
-                <a
-                  className="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                  href="#"
-                >
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a
-                  className="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                  href="#"
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a
-                  className="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                  href="#"
-                >
-                  Logout
-                </a>
-              </li>
-            </ul>
           </div>
         </div>
+
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <div
+            className={`lg:hidden mt-3 ${
+              isScrolled ? "text-primary" : "text-white"
+            }`}
+          >
+            <p
+              className="text-sm pl-5 py-2 mt-4"
+              onClick={() => router.push("/company")}
+            >
+              Company
+            </p>
+            <p
+              className="text-sm pl-5 py-2"
+              onClick={() => router.push("/brands")}
+            >
+              Brands
+            </p>
+            <p
+              className="text-sm pl-5 py-2"
+              onClick={() => router.push("/sustainability")}
+            >
+              Sustainability
+            </p>
+            <p
+              className="text-sm pl-5 py-2"
+              onClick={() => router.push("/investors")}
+            >
+              Investors
+            </p>
+            <p
+              className="text-sm pl-5 py-2"
+              onClick={() => router.push("/news-and-event")}
+            >
+              News & Event
+            </p>
+            <p
+              className="text-sm pl-5 py-2"
+              onClick={() => router.push("/blog")}
+            >
+              Blog
+            </p>
+            <p
+              className="text-sm pl-5 py-2"
+              onClick={() => router.push("/career")}
+            >
+              Career
+            </p>
+            <p
+              className="text-sm pl-5 py-2"
+              onClick={() => router.push("/international-business")}
+            >
+              International Business
+            </p>
+            <p
+              className="text-sm pl-5 py-2 pb-4"
+              onClick={() => router.push("/contact-us")}
+            >
+              Contact Us
+            </p>
+            <div className="inline pl-4 pt-3 pr-3">
+              <div className={`bg-white rounded-full p-1 py-2 inline`}>
+                <p
+                  className={`text-xs ${"text-yellow-500"} inline px-2 border-r-2 border-slate-800`}
+                >
+                  ID
+                </p>
+                <p className={`text-xs ${"text-yellow-500"} inline px-2`}>EN</p>
+              </div>
+            </div>
+            <div className="inline pl-3 border-l-2">
+              <div className="inline p-2 rounded-full bg-white">
+                <svg
+                  className="inline-block"
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0px"
+                  y="0px"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 50 50"
+                >
+                  <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;
