@@ -28,7 +28,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (pathname !== "/home" && pathname !== "/") {
-      return setIsScrolled(true);
+      setIsScrolled(false);
     } else {
       setIsScrolled(false);
     }
@@ -60,12 +60,12 @@ const Navbar = () => {
         isMenuOpen ? "h-full" : ""
       } left-0 right-0 z-[15] transition-all duration-300 ${
         isScrolled
-          ? "w-full bg-white text-primary"
+          ? "w-full bg-cyan-200 text-primary"
           : "bg-white w-11/12 mt-5 rounded-lg sm:rounded-lg md:rounded-lg xl:rounded-full"
       }`}
     >
       <div className="container mx-auto py-5">
-        <div className="flex justify-between lg:justify-around mx-5">
+        <div className="flex justify-center lg:justify-center space-x-10 mx-5">
           {/* <div className={`text-center ml-2 cursor-pointer`}>
             <Image
               onClick={() => router.push("/home")}
@@ -77,121 +77,50 @@ const Navbar = () => {
           </div> */}
 
           <div
-            className={`text-center lg-inline-flex mt-1 hidden lg:flex font-semibold text-pantoneA`}
+            className={`text-center lg-inline-flex mt-1 hidden lg:flex items-center font-semibold text-pantoneA`}
           >
             <p
-              className="text-xs mr-2 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
-              onClick={() => router.push("/company")}
+              className={`text-sm ${
+                pathname == "/home" ? "text-[#FAA419]" : ""
+              } mr-2 groups inline-block relative ${
+                isScrolled ? "hover:text-white" : "hover:text-[#FAA419]"
+              } cursor-pointer`}
+              onClick={() => router.push("/home")}
             >
-              Company
+              Beranda
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
             </p>
             <p
-              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
-              onClick={() => router.push("/brands")}
+              className={`text-sm ${
+                pathname == "/about" ? "text-[#FAA419]" : ""
+              } mx-3 groups inline-block relative ${
+                isScrolled ? "hover:text-white" : "hover:text-[#FAA419]"
+              } cursor-pointer`}
+              onClick={() => router.push("/about")}
             >
-              Brands
+              Penghargaan
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
             </p>
             <p
-              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
-              onClick={() => router.push("/sustainability")}
+              className={`text-sm ${
+                pathname == "/contact" ? "text-[#FAA419]" : ""
+              } mx-3 groups inline-block relative ${
+                isScrolled ? "hover:text-white" : "hover:text-[#FAA419]"
+              } cursor-pointer`}
+              onClick={() => router.push("/contact")}
             >
-              Sustainability
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
-            </p>
-            <p
-              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
-              onClick={() => router.push("/investors")}
-            >
-              Investors
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
-            </p>
-            <p
-              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
-              onClick={() => router.push("/news-and-event")}
-            >
-              News & Event
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
-            </p>
-            <p
-              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
-              onClick={() => router.push("/blog")}
-            >
-              Blog
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
-            </p>
-            <p
-              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
-              onClick={() => router.push("/career")}
-            >
-              Career
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
-            </p>
-            <p
-              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
-              onClick={() => router.push("/international-business")}
-            >
-              Internation Business
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
-            </p>
-            <p
-              className="text-xs mx-3 groups inline-block relative hover:text-[#FAA419] cursor-pointer"
-              onClick={() => router.push("/contact-us")}
-            >
-              Contact Us
+              Kontak Kami
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
             </p>
           </div>
 
-          <div className="text-center hidden lg:flex">
-            <div className="inline pr-3">
-              <div className={`bg-[#F4F5FB] rounded-full p-1 py-2 inline`}>
-                {pathname !== "/international-business" ? (
-                  <div className="inline">
-                    <p
-                      className={`text-xs inline ${"text-yellow-500"} px-2 border-r-[1px] border-yellow-500 cursor-pointer`}
-                    >
-                      ID
-                    </p>
-                    <p
-                      className={`text-xs inline ${"text-yellow-500"} px-2 border-yellow-500 cursor-pointer`}
-                    >
-                      EN
-                    </p>
-                  </div>
-                ) : (
-                  <div className="inline">
-                    <p className="text-xs inline text-yellow-500 px-2 border-r-2 cursor-pointer">
-                      EN
-                    </p>
-                    <p className="text-xs inline text-primary px-2 border-r-2 cursor-pointer">
-                      CH
-                    </p>
-                    <p className="text-xs inline text-primary px-2 border-r-2 cursor-pointer">
-                      JP
-                    </p>
-                    <p className="text-xs inline text-primary px-2 cursor-pointer">
-                      TH
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="inline pl-3 border-l-2">
-              <div className={`inline p-2 rounded-full bg-[#F4F5FB]`}>
-                <svg
-                  className="inline-block"
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="0px"
-                  y="0px"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 50 50"
-                >
-                  <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
-                </svg>
-              </div>
+          <div className="text-center hidden lg:flex justify-center items-center">
+            <div className={`bg-[#F4F5FB] rounded-full p-2`}>
+              <p
+                className={`text-xs font-bold ${"text-yellow-500"} px-2 border-yellow-500 cursor-pointer`}
+              >
+                Login
+              </p>
             </div>
           </div>
 
