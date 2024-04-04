@@ -54,34 +54,37 @@ const Navbar = () => {
     };
   }, [pathname]);
 
+  const exclude = ['/login', '/register', '/dashboard']
+
   return (
+    !exclude.includes(pathname) &&
     <nav
-      className={`mx-auto max-w-full fixed top-0 ${
+      className={`mx-auto max-w-full fixed top-0 bg-white  ${
         isMenuOpen ? "h-full" : ""
-      } left-0 right-0 z-[15] transition-all duration-300 ${
+      } left-0 right-0 z-[9999] transition-all duration-300 ${
         isScrolled
-          ? "w-full bg-cyan-200 text-primary"
-          : "bg-white w-11/12 mt-5 rounded-lg sm:rounded-lg md:rounded-lg xl:rounded-full"
+          ? "w-full text-primary"
+          : "w-11/12 mt-5 rounded-lg sm:rounded-lg md:rounded-lg xl:rounded-full"
       }`}
     >
       <div className="container mx-auto py-5">
         <div className="flex justify-center lg:justify-center space-x-10 mx-5">
-          {/* <div className={`text-center ml-2 cursor-pointer`}>
+          <div className={`text-center ml-2 cursor-pointer`}>
             <Image
               onClick={() => router.push("/home")}
-              src={"/assets/image/logo.svg"}
+              src={"/assets/images/kerumah_logo.png"}
               width={70}
               height={70}
               alt="test"
             />
-          </div> */}
+          </div>
 
           <div
             className={`text-center lg-inline-flex mt-1 hidden lg:flex items-center font-semibold text-pantoneA`}
           >
             <p
               className={`text-sm ${
-                pathname == "/home" ? "text-[#FAA419]" : ""
+                pathname == "/home" ? "text-[#FAA419]" : " text-black"
               } mr-2 groups inline-block relative ${
                 isScrolled ? "hover:text-white" : "hover:text-[#FAA419]"
               } cursor-pointer`}
@@ -92,34 +95,41 @@ const Navbar = () => {
             </p>
             <p
               className={`text-sm ${
-                pathname == "/about" ? "text-[#FAA419]" : ""
+                pathname == "/about" ? "text-[#FAA419]" : " text-black"
               } mx-3 groups inline-block relative ${
                 isScrolled ? "hover:text-white" : "hover:text-[#FAA419]"
               } cursor-pointer`}
               onClick={() => router.push("/about")}
             >
-              Penghargaan
+              What We Do
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
             </p>
             <p
               className={`text-sm ${
-                pathname == "/contact" ? "text-[#FAA419]" : ""
+                pathname == "/contact" ? "text-[#FAA419]" : "text-black"
               } mx-3 groups inline-block relative ${
                 isScrolled ? "hover:text-white" : "hover:text-[#FAA419]"
               } cursor-pointer`}
               onClick={() => router.push("/contact")}
             >
-              Kontak Kami
+              Contact Us
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FAA419] transform scale-x-0 origin-left transition-transform ease-out duration-250 group-hover:scale-x-100"></span>
             </p>
           </div>
 
-          <div className="text-center hidden lg:flex justify-center items-center">
-            <div className={`bg-[#F4F5FB] rounded-full p-2`}>
+          <div className="text-center hidden lg:flex space-x-2 justify-center items-center">
+            <div className={`bg-[#F4F5FB] rounded-full p-2`} onClick={() => router.push('/login')}>
               <p
-                className={`text-xs font-bold ${"text-yellow-500"} px-2 border-yellow-500 cursor-pointer`}
+                className={`text-xs font-bold ${pathname == '/login' ? "text-yellow-500" : 'text-black'} px-2 border-yellow-500 cursor-pointer`}
               >
                 Login
+              </p>
+            </div>
+            <div className={`bg-[gray] rounded-full p-2`} onClick={() => router.push('/register')}>
+              <p
+                className={`text-xs font-bold ${pathname == '/register' ? "text-yellow-500" : 'text-white'} px-2 border-yellow-500 cursor-pointer`}
+              >
+                Register
               </p>
             </div>
           </div>

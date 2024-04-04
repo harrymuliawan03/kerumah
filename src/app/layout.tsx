@@ -22,9 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={"bg-white"}>
-        <Navbar />
         {children}
-        <Footer />
         <Toaster />
       </body>
     </html>

@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import Slider from "react-slick";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import Testimonial from "./components/Testimonial";
+import WrapperPage from "@/components/wrapper/WrapperPage";
 
 export default function HomePage() {
   const settings = {
@@ -20,7 +21,7 @@ export default function HomePage() {
     className: "padding: 0;",
   };
   return (
-    <>
+    <WrapperPage>
       <Slider {...settings} className="w-full h-[500px]">
         <div className="relative w-full h-[500px]">
           <Image
@@ -183,23 +184,23 @@ export default function HomePage() {
 
               <div className="grid gap-x-6 md:grid-cols-3 lg:gap-x-12">
                 <Testimonial
-                  name="Wesley Sananta"
+                  name="Taylor Swift"
                   job="Back End Developer"
-                  comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, nostrum."
+                  comment="Aplikasi Kerumah sungguh luar biasa! Sebagai seorang agen properti, saya sangat mengandalkan aplikasi ini dalam menjalankan bisnis saya. Dengan Kerumah, saya bisa dengan mudah mengatur jadwal pertemuan dengan calon penyewa, mengirimkan kontrak sewa, dan melacak pembayaran secara langsung. Fitur-fitur manajemen properti yang lengkap dan antarmuka yang intuitif membuat Kerumah menjadi pilihan utama saya dalam mengelola properti. Terima kasih, Kerumah, atas kemudahan dan kepraktisan yang Anda berikan!"
                   rating={5}
                   image="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).jpg"
                 />
                 <Testimonial
-                  name="Wesley Sananta"
+                  name="Lia Corel"
                   job="Back End Developer"
-                  comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, nostrum."
+                  comment="Kerumah benar-benar membantu saya dalam mengelola apartemen saya dengan lebih efisien. Fitur-fiturnya yang lengkap, seperti manajemen pembayaran dan jadwal, membuat segalanya menjadi lebih terorganisir. Saya juga menyukai kemudahan mengatur inspeksi dan permintaan perawatan melalui aplikasi ini. Selain itu, dukungan pelanggan yang responsif dan ramah membuat pengalaman menggunakan Kerumah semakin menyenangkan. Sangat direkomendasikan untuk para pemilik properti!"
                   rating={5}
                   image="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(2).jpg"
                 />
                 <Testimonial
                   name="Wesley Sananta"
                   job="Back End Developer"
-                  comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, nostrum."
+                  comment="Saya sangat terkesan dengan aplikasi Kerumah! Sebagai pemilik beberapa properti, saya seringkali merasa kesulitan untuk mengatur jadwal, melakukan pembayaran, dan mengelola komunikasi dengan penyewa. Namun, setelah menggunakan Kerumah, semuanya menjadi jauh lebih mudah. Saya bisa dengan cepat melacak jadwal penyewaan, mengelola pembayaran, dan bahkan berkomunikasi langsung dengan penyewa melalui fitur pesan. Aplikasi ini benar-benar mengubah cara saya mengelola properti saya."
                   rating={4.5}
                   image="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(9).jpg"
                 />
@@ -212,7 +213,7 @@ export default function HomePage() {
       <div className="container my-24 mx-auto md:px-6">
         <section className="mb-32 text-center">
           <h2 className="mb-12 pb-4 text-center text-3xl font-bold">
-            Projects we are proud of
+            Properti apa saja ??
           </h2>
 
           <div className="grid gap-6 lg:grid-cols-3 xl:gap-x-12">
@@ -234,7 +235,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="p-6">
-                  <h5 className="mb-4 text-lg font-bold">White city</h5>
+                  <h5 className="mb-4 text-lg font-bold">Perumahan</h5>
                   <p className="mb-6">
                     Ut pretium ultricies dignissim. Sed sit amet mi eget urna
                     placerat vulputate. Ut vulputate est non quam dignissim
@@ -270,7 +271,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="p-6">
-                  <h5 className="mb-4 text-lg font-bold">A lonely bench</h5>
+                  <h5 className="mb-4 text-lg font-bold">Kontrakan</h5>
                   <p className="mb-6">
                     Suspendisse in volutpat massa. Nulla facilisi. Sed aliquet
                     diam orci, nec ornare metus semper sed. Integer volutpat
@@ -306,7 +307,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="p-6">
-                  <h5 className="mb-4 text-lg font-bold">Happy snow</h5>
+                  <h5 className="mb-4 text-lg font-bold">Kostan</h5>
                   <p className="mb-6">
                     Curabitur tristique, mi a mollis sagittis, metus felis
                     mattis arcu, non vehicula nisl dui quis diam. Mauris ut
@@ -326,6 +327,6 @@ export default function HomePage() {
           </div>
         </section>
       </div>
-    </>
+    </WrapperPage>
   );
 }

@@ -1,6 +1,8 @@
+import WrapperPage from "@/components/wrapper/WrapperPage";
+
 export default function ContactPage() {
   return (
-    <>
+    <WrapperPage>
       <div className="mx-auto pt-14 md:px-6">
         <section className="text-center">
           <div className="py-12 md:px-12">
@@ -77,6 +79,6 @@ export default function ContactPage() {
           </div>
         </section>
       </div>
-    </>
+    </WrapperPage>
   );
 }
