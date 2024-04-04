@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Nav from "./components/layout/Nav"
 import SideNav from "./components/layout/SideNav"
 
