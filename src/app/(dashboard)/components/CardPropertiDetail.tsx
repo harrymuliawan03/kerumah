@@ -6,7 +6,7 @@ type Props = {
   onClick?: () => void;
 };
 
-const CardProperti: React.FC<Props> = (props) => {
+const CardPropertiDetail: React.FC<Props> = (props) => {
   return (
     <div
       className="rounded overflow-hidden shadow-lg flex flex-col cursor-pointer"
@@ -27,22 +27,8 @@ const CardProperti: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
-      <div className="px-6 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-3 gap-10 py-4 bg-slate-500">
-        <div className="p-2 bg-[#d5b150] shadow-lg flex flex-col items-center text-white rounded-xl">
-          <p>Ruangan</p>
-          <p>20</p>
-        </div>
-        <div className="p-2 bg-[#a555e2] shadow-lg flex flex-col items-center text-white rounded-xl">
-          <p>Terisi</p>
-          <p>20</p>
-        </div>
-        <div className="p-2 bg-[#5fe79a] shadow-lg flex flex-col items-center text-white rounded-xl">
-          <p>Tersedia</p>
-          <p>20</p>
-        </div>
-      </div>
     </div>
   );
 };
 
-export default CardProperti;
+export default CardPropertiDetail;

@@ -23,7 +23,8 @@ export default function AboutPage() {
                 data-aos-once="true"
                 className="my-4 text-5xl font-bold leading-tight text-darken"
               >
-                <span className="text-yellow-500">Kelola</span> aset properti anda dengan platform terpercaya
+                <span className="text-yellow-500">Kelola</span> aset properti
+                anda dengan platform terpercaya
               </h1>
               <p
                 data-aos="fade-down"
@@ -100,20 +101,20 @@ export default function AboutPage() {
                   <path
                     d="M74.5 54.425V78.575"
                     stroke="#F25471"
-                    stroke-width="4"
-                    stroke-linecap="round"
+                    strokeWidth="4"
+                    strokeLinecap="round"
                   />
                   <path
                     d="M65.875 58.7375L65.875 78.575"
                     stroke="#F25471"
-                    stroke-width="4"
-                    stroke-linecap="round"
+                    strokeWidth="4"
+                    strokeLinecap="round"
                   />
                   <path
                     d="M83.125 63.9125V78.575"
                     stroke="#F25471"
-                    stroke-width="4"
-                    stroke-linecap="round"
+                    strokeWidth="4"
+                    strokeLinecap="round"
                   />
                   <defs>
                     <filter
@@ -246,9 +247,7 @@ export default function AboutPage() {
               <h1 className="font-medium text-xl mb-3 lg:px-14 text-darken">
                 Manajemen Pembayaran
               </h1>
-              <p className="px-4 text-gray-500">
-                Mudah, simple dan Praktis
-              </p>
+              <p className="px-4 text-gray-500">Mudah, simple dan Praktis</p>
             </div>
             <div
               data-aos="fade-up"
@@ -319,7 +318,8 @@ export default function AboutPage() {
                 Penjadwalan dan Tracking Laporan
               </h1>
               <p className="px-4 text-gray-500">
-                Kelola penjadwalan pembayaran, ataupun menelusuri riwayat pembayaran.
+                Kelola penjadwalan pembayaran, ataupun menelusuri riwayat
+                pembayaran.
               </p>
             </div>
             <div
@@ -347,7 +347,8 @@ export default function AboutPage() {
                 Tracking Penghuni
               </h1>
               <p className="px-4 text-gray-500">
-                Dapat menelusuri data penghuni baik yang baru maupun yang lama. Tentunya kerahasiaan data terjamin dan aman.
+                Dapat menelusuri data penghuni baik yang baru maupun yang lama.
+                Tentunya kerahasiaan data terjamin dan aman.
               </p>
             </div>
           </div>
@@ -361,7 +362,17 @@ export default function AboutPage() {
                 Apa itu <span className="text-yellow-500">Kerumah?</span>
               </h1>
               <p className="text-gray-500">
-                Kerumah adalah platform yang dirancang untuk membantu para pengelola properti dalam mengelola properti mereka secara efisien. Platform ini menyediakan berbagai fitur lengkap untuk tugas-tugas manajemen properti, memungkinkan pengguna untuk menyimpan informasi properti secara online, mengelola perjanjian sewa, melacak permintaan perawatan, menjadwalkan inspeksi, memantau tanggal kedaluwarsa sewa, dan berkomunikasi dengan penyewa, semua dalam satu tempat terpusat. Dengan Kerumah, para pengelola properti dapat menyederhanakan operasi mereka dan memastikan manajemen properti yang efektif dari mana pun dan kapan pun.
+                Kerumah adalah platform yang dirancang untuk membantu para
+                pengelola properti dalam mengelola properti mereka secara
+                efisien. Platform ini menyediakan berbagai fitur lengkap untuk
+                tugas-tugas manajemen properti, memungkinkan pengguna untuk
+                menyimpan informasi properti secara online, mengelola perjanjian
+                sewa, melacak permintaan perawatan, menjadwalkan inspeksi,
+                memantau tanggal kedaluwarsa sewa, dan berkomunikasi dengan
+                penyewa, semua dalam satu tempat terpusat. Dengan Kerumah, para
+                pengelola properti dapat menyederhanakan operasi mereka dan
+                memastikan manajemen properti yang efektif dari mana pun dan
+                kapan pun.
               </p>
             </div>
             <div
@@ -416,13 +427,19 @@ export default function AboutPage() {
                 {/* <span className="text-yellow-500">you can do with Skilline</span> */}
               </h1>
               <p className="py-5 lg:pr-32">
-                Perangkat lunak manajemen properti dari Kerumah membantu pengelolaan properti baik secara tradisional maupun daring dalam mengatur jadwal, kehadiran, pembayaran, dan ruang virtual semua dalam satu sistem berbasis awan yang aman.
+                Perangkat lunak manajemen properti dari Kerumah membantu
+                pengelolaan properti baik secara tradisional maupun daring dalam
+                mengatur jadwal, kehadiran, pembayaran, dan ruang virtual semua
+                dalam satu sistem berbasis awan yang aman.
               </p>
               <a href="" className="underline">
                 Pelajari lebih lanjut
               </a>
             </div>
-            <div data-aos="fade-left" className="sm:w-1/2 relative mt-10 sm:mt-0">
+            <div
+              data-aos="fade-left"
+              className="sm:w-1/2 relative mt-10 sm:mt-0"
+            >
               <div
                 style={{ background: "#23BDEE" }}
                 className="floating w-24 h-24 absolute rounded-lg z-0 -top-3 -left-3"
@@ -574,13 +591,13 @@ export default function AboutPage() {
           <div className="flex flex-col md:flex-row items-center md:space-x-10 mt-16">
             <div data-aos="fade-right" className="md:w-1/2 lg:pl-14">
               <h1 className="text-darken font-semibold text-3xl lg:pr-56">
-                <span className="text-yellow-500">Apakah</span> anda sudah siap ??
+                <span className="text-yellow-500">Apakah</span> anda sudah siap
+                ??
               </h1>
-              <p className="text-gray-500 my-4 lg:pr-32">
-              </p>
+              <p className="text-gray-500 my-4 lg:pr-32"></p>
               <button className="lg:mx-0 bg-yellow-500 mt-10 text-white text-xl font-bold rounded-full py-4 px-9 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out">
-                  Bergabung Sekarang
-                </button>
+                Bergabung Sekarang
+              </button>
             </div>
             <img
               data-aos="fade-left"

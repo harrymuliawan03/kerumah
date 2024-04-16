@@ -3,7 +3,7 @@ import WrapperPage from "@/components/wrapper/WrapperPage";
 export default function ContactPage() {
   return (
     <WrapperPage>
-      <div className="mx-auto pt-14 md:px-6">
+      <div className="mx-auto pt-14 md:px-6 bg-slate-300">
         <section className="text-center">
           <div className="py-12 md:px-12">
             <div className="container mx-auto xl:px-32">
@@ -58,7 +58,7 @@ export default function ContactPage() {
                         type="button"
                         data-te-ripple-init
                         data-te-ripple-color="light"
-                        className="inline-block w-full rounded bg-blue-200 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] lg:mb-0"
+                        className="inline-block w-full rounded bg-blue-500 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] lg:mb-0"
                       >
                         Send
                       </button>
@@ -68,7 +68,7 @@ export default function ContactPage() {
                 <div className="md:mb-12 lg:mb-0">
                   <div className="relative h-[700px] rounded-lg shadow-lg dark:shadow-black/20">
                     <iframe
-                      src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.8714196774918!2d106.72522017474991!3d-6.147965993839054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f7f9c2193b8f%3A0x35a5f461eaf5e449!2sBSI%20Cengkareng!5e0!3m2!1sid!2sid!4v1712384421248!5m2!1sid!2sid"
                       className="absolute left-0 top-0 h-full w-full rounded-lg border-0"
                       allowFullScreen
                     ></iframe>
