@@ -40,11 +40,18 @@ const DetailUnitPage: React.FC = () => {
                 Edit{" "}
               </Link>
               <Link
+                href="/dashboard/perumahan/edit-unit"
+                className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
+              >
+                {" "}
+                Bayar{" "}
+              </Link>
+              <Link
                 href="/dashboard/perumahan/add"
                 className=" p-2 rounded bg-red-500 text-center font-bold text-white hover:text-slate-200"
               >
                 {" "}
-                Hapus{" "}
+                Arsipkan{" "}
               </Link>
             </div>
           </div>
@@ -58,11 +65,18 @@ const DetailUnitPage: React.FC = () => {
             Edit{" "}
           </Link>
           <Link
+            href="/dashboard/perumahan/edit-unit"
+            className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
+          >
+            {" "}
+            Bayar{" "}
+          </Link>
+          <Link
             href="/dashboard/perumahan/add"
             className=" p-2 rounded bg-red-500 text-center font-bold text-white hover:text-slate-200"
           >
             {" "}
-            Hapus{" "}
+            Arsipkan{" "}
           </Link>
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
@@ -130,6 +144,14 @@ const DetailUnitPage: React.FC = () => {
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <InputComponent
               title="Tanggal Mulai Kontrak"
+              onChange={() => {}}
+              type="date"
+              disabled
+            />
+          </div>
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <InputComponent
+              title="Tanggal Jatuh Tempo"
               onChange={() => {}}
               type="date"
               disabled

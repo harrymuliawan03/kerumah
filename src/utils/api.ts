@@ -1,10 +1,6 @@
 
 import { DataResponse, HttpResponse } from '../models/api-response-models'
-// import { DefaultConfig } from '../config/base'
-import Cookies from 'js-cookie'
-import useLang from '@/store/lang/useLang'
-
-const API_URL: string = process.env.NEXT_PUBLIC_API_URL as ''
+import { API_URL } from './config-api'
 
 const HandleError = (code: number, path?: string) => {
   if (code === 401) {
@@ -189,11 +185,11 @@ export const getData = async <T extends DataResponse>(url: string): Promise<Http
   //   lang ='id'
   // }
 
-  console.log("INI LANGUAGE SEKARANG", useLang.getState().lang)
+  // console.log("INI LANGUAGE SEKARANG", useLang.getState().lang)
 
 
   try {
-    const res: Response = await fetch(`${API_URL}${url}?lang=${useLang.getState().lang}`, {
+    const res: Response = await fetch(`${API_URL}${url}`, {
       method: 'GET',
       cache: 'no-store',
       headers: {
@@ -209,18 +205,9 @@ export const getData = async <T extends DataResponse>(url: string): Promise<Http
 };
 
 export const getDataWithParam = async <T extends DataResponse>(url: string): Promise<HttpResponse<T> | any> => {
-  let lang;
-  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-    lang = localStorage.getItem('lang') ?? 'en'
-  }
-
-  if (typeof window === 'undefined') {
-    lang = useLang.getState().lang
-
-  }
 
   try {
-    const res: Response = await fetch(`${API_URL}${url}&lang=${useLang.getState().lang}`, {
+    const res: Response = await fetch(`${API_URL}`, {
       method: 'GET',
       cache: 'no-store',
       headers: {

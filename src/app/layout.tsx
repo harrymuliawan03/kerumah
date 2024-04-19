@@ -24,7 +24,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={"bg-white"}>
         <WrapperPrivatePage>{children}</WrapperPrivatePage>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            duration: 4000,
+          }}
+        />
       </body>
     </html>
   );

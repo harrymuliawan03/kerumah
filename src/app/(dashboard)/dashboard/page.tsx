@@ -8,7 +8,7 @@ import WrapperDashboard from "../components/wrapper/WrapperDashboard";
 const DashboardPage: React.FC = () => {
   return (
     <WrapperDashboard>
-      <div className="grid grid-cols-3 gap-4 mb-4">
+      <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="flex items-center justify-between h-24 rounded-xl bg-white p-5">
           <div className="flex flex-col text-black w-1/2">
             <p className="font-bold text-gray-400 text-sm">Total Properti</p>
@@ -36,6 +36,15 @@ const DashboardPage: React.FC = () => {
             <FaDoorOpen style={{ height: 30, width: 30, color: "white" }} />
           </div>
         </div>
+        {/* <div className="flex items-center justify-between h-24 rounded-xl bg-white p-5">
+          <div className="flex flex-col text-black w-1/2">
+            <p className="font-bold text-gray-400 text-sm">Ruangan Terisi</p>
+            <p className="font-bold text-2xl">5</p>
+          </div>
+          <div className="bg-[#7BCBD4] p-2 rounded-2xl">
+            <FaClock style={{ height: 30, width: 30, color: "white" }} />
+          </div>
+        </div> */}
         <div className="flex items-center justify-between h-24 rounded-xl bg-white p-5">
           <div className="flex flex-col text-black w-1/2">
             <p className="font-bold text-gray-400 text-sm">
@@ -47,16 +56,7 @@ const DashboardPage: React.FC = () => {
             <FaClock style={{ height: 30, width: 30, color: "white" }} />
           </div>
         </div>
-        <div className="flex items-center justify-between h-24 rounded-xl bg-white p-5">
-          <div className="flex flex-col text-black w-1/2">
-            <p className="font-bold text-gray-400 text-sm">Belum Bayar</p>
-            <p className="font-bold text-2xl">5</p>
-          </div>
-          <div className="bg-[#7BCBD4] p-2 rounded-2xl">
-            <FaDoorOpen style={{ height: 30, width: 30, color: "white" }} />
-          </div>
-        </div>
-        <div className="flex items-center justify-between h-24 rounded-xl bg-white p-5">
+        {/* <div className="flex items-center justify-between h-24 rounded-xl bg-white p-5">
           <div className="flex flex-col text-black w-1/2">
             <p className="font-bold text-gray-400 text-sm">
               Ruangan Tidak Aktif
@@ -66,7 +66,7 @@ const DashboardPage: React.FC = () => {
           <div className="bg-[#7BCBD4] p-2 rounded-2xl">
             <FaDoorOpen style={{ height: 30, width: 30, color: "white" }} />
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="w-full h-96 mb-4 bg-gray-50">

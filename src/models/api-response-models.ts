@@ -1,5 +1,5 @@
 export interface CoreResponseApi {
-    valid: boolean
+    success: boolean
   }
 
   export type PaginateResponse = {
@@ -58,7 +58,7 @@ export interface CoreResponseApi {
   }
 
   export interface ResponseUseCase<T> {
-    valid: boolean
+    success: boolean
     message: string
     status_code?: number
     data?: T | null

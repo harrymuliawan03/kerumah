@@ -1,6 +1,6 @@
-import { DataResponse, HttpResponse } from '../../../../models/api-response-models'
+import { postData, postDataWithToken } from '@/utils/api'
 import { LoginWithEmailRequest, LoginWithOTPRequest, OtpRequest } from '../../models/login/login-request.model'
-import { postData, postDataWithToken } from '../../../../shared/utils/api'
+import { DataResponse, HttpResponse } from '@/models/api-response-models'
 
 const LoginWithEmail = async <T extends DataResponse>(data: LoginWithEmailRequest): Promise<HttpResponse<T>> => {
   const res: HttpResponse<T> = await postData(`/auth/login`, data)

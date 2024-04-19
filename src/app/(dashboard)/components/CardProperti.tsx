@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
 
 type Props = {
@@ -13,12 +14,18 @@ const CardProperti: React.FC<Props> = (props) => {
       onClick={() => props.onClick?.()}
     >
       <div className="relative">
-        <div>
-          <img
+        <div className="w-full">
+          <Image
+            src="/assets/images/perumahan1.jpeg"
+            width={500}
+            height={70}
+            alt="Perumahan"
+          />
+          {/* <img
             className="w-full"
             src="https://images.pexels.com/photos/61180/pexels-photo-61180.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500"
             alt="Sunset in the mountains"
-          />
+          /> */}
           <div className="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-white opacity-25"></div>
         </div>
         <div>
@@ -27,7 +34,7 @@ const CardProperti: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
-      <div className="px-6 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-3 gap-10 py-4 bg-slate-500">
+      <div className="px-6 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-3 gap-2 py-4 bg-slate-500">
         <div className="p-2 bg-[#d5b150] shadow-lg flex flex-col items-center text-white rounded-xl">
           <p>Ruangan</p>
           <p>20</p>
