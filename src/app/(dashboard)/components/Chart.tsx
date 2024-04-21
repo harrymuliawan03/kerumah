@@ -11,7 +11,13 @@ import {
   Legend,
 } from "chart.js";
 
-export default function Chart() {
+type Props = {
+  labels: string[];
+  data: number[];
+  title: string;
+};
+
+const Chart = (props: Props) => {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -43,25 +49,33 @@ export default function Chart() {
         text: "Chart.js Line Chart",
       },
     },
+    scales: {
+      y: {
+        min: 0,
+        max: 100,
+      },
+    },
   };
 
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
+  // const labels = [
+  //   "January",
+  //   "February",
+  //   "March",
+  //   "April",
+  //   "May",
+  //   "June",
+  //   "July",
+  // ];
+
+  const labels = props.labels;
 
   const data = {
     labels,
     datasets: [
       {
         fill: true,
-        label: "Dataset 2",
-        data: [200, 50, 20, 100, 500, 200, 10],
+        label: props.title,
+        data: props.data,
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
@@ -69,4 +83,6 @@ export default function Chart() {
   };
 
   return <Line options={options} data={data} />;
-}
+};
+
+export default Chart;

@@ -11,7 +11,7 @@ const Nav: React.FC = () => {
   const [toggleProfile, setToggleProfile] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const { setUser } = useAuth();
+  const { setUser, user } = useAuth();
 
   const handleLogout = async () => {
     LogoutCase();
@@ -96,10 +96,10 @@ const Nav: React.FC = () => {
             >
               <div>
                 <p className="text-sm text-gray-900" role="none">
-                  Neil Sims
+                  {user?.name}
                 </p>
                 <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300">
-                  neil.sims@flowbite.com
+                  {user?.email}
                 </p>
               </div>
               <div>
