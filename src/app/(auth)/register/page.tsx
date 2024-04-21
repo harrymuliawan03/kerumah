@@ -1,10 +1,10 @@
 "use client";
 
-import { RegisterRequest } from "@/app/modules/auth/models/register/register-request.model";
-import SideBanner from "@/app/modules/auth/presentations/components/side-banner";
-import InputComponentAuth from "@/app/modules/auth/presentations/register/form/input";
-import { RegisterCase } from "@/app/modules/auth/usecases/register/register.usecase";
 import InputComponent from "@/components/form/Input";
+import { RegisterRequest } from "@/modules/auth/models/register/register-request.model";
+import SideBanner from "@/modules/auth/presentations/components/side-banner";
+import InputComponentAuth from "@/modules/auth/presentations/register/form/input";
+import { RegisterCase } from "@/modules/auth/usecases/register/register.usecase";
 import formatMessages from "@/utils/service";
 import Image from "next/image";
 import Link from "next/link";

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
-import Slider from "react-slick";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import Testimonial from "./components/Testimonial";
 import WrapperPage from "@/components/wrapper/WrapperPage";
@@ -20,6 +19,7 @@ export default function HomePage() {
     arrows: false,
     className: "padding: 0;",
   };
+
   return (
     <WrapperPage>
       <div className="w-full h-[500px]">

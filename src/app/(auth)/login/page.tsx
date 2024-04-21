@@ -1,8 +1,55 @@
-import SideBanner from "@/app/modules/auth/presentations/components/side-banner";
+"use client";
+
+import { useAuth } from "@/hooks/useHooks";
+import { LoginRequest } from "@/modules/auth/models/login/login-request.model";
+import SideBanner from "@/modules/auth/presentations/components/side-banner";
+import InputComponentAuth from "@/modules/auth/presentations/register/form/input";
+import { LoginCase } from "@/modules/auth/usecases/login/login.usecase";
+import formatMessages from "@/utils/service";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function AuthPage() {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [onProcess, setOnProcess] = useState<boolean>(false);
+  const router = useRouter();
+  const { setUser } = useAuth();
+
+  const onSubmit = async () => {
+    toast.dismiss();
+    setOnProcess(true);
+    const data: LoginRequest = {
+      email: email,
+      password: password,
+    };
+    const toastId = toast.loading("Loading...");
+    const res = await LoginCase(data);
+
+    if (res?.success) {
+      toast.success("Login Berhasil", {
+        id: toastId,
+      });
+      setUser(res?.data ?? null);
+      setTimeout(() => {
+        router.replace("/dashboard");
+      }, 50);
+    } else {
+      let message = res?.message;
+      if (Array.isArray(res?.message)) {
+        message = formatMessages(res?.message);
+      }
+      toast.error(message, {
+        id: toastId,
+      });
+    }
+
+    setOnProcess(false);
+  };
+
   return (
     <div className="flex h-screen">
       <SideBanner />
@@ -11,44 +58,37 @@ export default function AuthPage() {
           <h1 className="text-3xl font-semibold mb-6 text-black text-center">
             Sign In
           </h1>
-          <form action="#" method="POST" className="space-y-4">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email
-              </label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-              />
-            </div>
-            <div>
-              <button
-                type="submit"
-                className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
-              >
-                Sign In
-              </button>
-            </div>
-          </form>
+          <div>
+            <InputComponentAuth
+              title="Email"
+              type="email"
+              id="email"
+              name="email"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <InputComponentAuth
+              title="Password"
+              type="password"
+              id="password"
+              name="password"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <button
+              className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
+              onClick={onSubmit}
+              disabled={onProcess}
+            >
+              Sign In
+            </button>
+          </div>
           <div className="mt-4 text-sm text-gray-600 text-center">
             <p>
               Dont have an account?{" "}

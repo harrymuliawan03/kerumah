@@ -1,8 +1,42 @@
+"use client";
+import { useAuth } from "@/hooks/useHooks";
+import { LogoutCase } from "@/modules/auth/usecases/logout/logout-usecase";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 const Nav: React.FC = () => {
+  const [toggleProfile, setToggleProfile] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const { setUser } = useAuth();
+
+  const handleLogout = async () => {
+    LogoutCase();
+    setUser(null);
+    router.push("/login");
+    toast.success("Logout berhasil");
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setToggleProfile(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200700">
       <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -39,16 +73,14 @@ const Nav: React.FC = () => {
               />
             </Link>
           </div>
-          <div className="flex items-center">
+          <div className="relative flex items-center" ref={dropdownRef}>
             <div className="flex items-center ms-3">
               <div>
                 <button
                   type="button"
                   className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                  aria-expanded="false"
-                  data-dropdown-toggle="dropdown-user"
+                  onClick={() => setToggleProfile(!toggleProfile)}
                 >
-                  <span className="sr-only">Open user menu</span>
                   <img
                     className="w-8 h-8 rounded-full"
                     src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
@@ -56,59 +88,29 @@ const Nav: React.FC = () => {
                   />
                 </button>
               </div>
-              <div
-                className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                id="dropdown-user"
-              >
-                <div className="px-4 py-3" role="none">
-                  <p className="text-sm text-gray-900" role="none">
-                    Neil Sims
-                  </p>
-                  <p
-                    className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
-                    role="none"
-                  >
-                    neil.sims@flowbite.com
-                  </p>
-                </div>
-                <ul className="py-1" role="none">
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                      role="menuitem"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                      role="menuitem"
-                    >
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                      role="menuitem"
-                    >
-                      Earnings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                      role="menuitem"
-                    >
-                      Sign out
-                    </a>
-                  </li>
-                </ul>
+            </div>
+            <div
+              className={`w-48 rounded-lg p-5 bg-white border border-slate-300 absolute ${
+                toggleProfile ? "flex" : "hidden"
+              } flex-col space-y-3 top-9 right-0`}
+            >
+              <div>
+                <p className="text-sm text-gray-900" role="none">
+                  Neil Sims
+                </p>
+                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300">
+                  neil.sims@flowbite.com
+                </p>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300">
+                  Settings
+                </p>
+              </div>
+              <div onClick={handleLogout} className="cursor-pointer">
+                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300">
+                  Logout{" "}
+                </p>
               </div>
             </div>
           </div>

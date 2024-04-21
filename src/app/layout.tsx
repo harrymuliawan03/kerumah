@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Footer from "@/components/layouts/Footer";
 import { Toaster } from "react-hot-toast";
 import WrapperPrivatePage from "@/components/wrapper/WrapperPrivatePage";
+import { AuthProvider } from "@/contexts/auth/authContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,12 +24,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={"bg-white"}>
-        <WrapperPrivatePage>{children}</WrapperPrivatePage>
-        <Toaster
-          toastOptions={{
-            duration: 4000,
-          }}
-        />
+        <AuthProvider>
+          <WrapperPrivatePage>{children}</WrapperPrivatePage>
+          <Toaster
+            toastOptions={{
+              duration: 4000,
+            }}
+          />
+        </AuthProvider>
       </body>
     </html>
   );

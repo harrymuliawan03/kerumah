@@ -1,175 +1,177 @@
-
-import { DataResponse, HttpResponse } from '../models/api-response-models'
-import { API_URL } from './config-api'
+import Cookies from "js-cookie";
+import { DataResponse, HttpResponse } from "../models/api-response-models";
+import { API_URL } from "./config-api";
 
 const HandleError = (code: number, path?: string) => {
   if (code === 401) {
-    if (typeof window !== 'undefined') {
-      const baseUrl = window.location.origin
-      localStorage.clear()
-    //   Cookies.remove('lastResetTime')
+    if (typeof window !== "undefined") {
+      const baseUrl = window.location.origin;
+      localStorage.clear();
+      //   Cookies.remove('lastResetTime')
 
-    //   window.location.replace(`${baseUrl + DefaultConfig.baseUrlLogin}`)
+      //   window.location.replace(`${baseUrl + DefaultConfig.baseUrlLogin}`)
     }
   }
-
-}
+};
 
 const getTokenSession = async () => {
-  if (typeof window !== "undefined") {
-    const res: any = localStorage.getItem('accessToken')
+  const storedToken = Cookies.get("accessToken");
+  return storedToken;
+};
 
-    if (res) {
-      return res
-    }
-  }
-  return ''
-}
-export const getDataWithToken = async <T extends DataResponse>(url: string): Promise<HttpResponse<T> | any> => {
-  const tokenSession = await getTokenSession()
+export const getDataWithToken = async <T extends DataResponse>(
+  url: string
+): Promise<HttpResponse<T> | any> => {
+  const tokenSession = await getTokenSession();
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
-
-
   try {
     const res: Response = await fetch(`${API_URL}${url}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokenSession}`
-      }
-    })
-    const resJson: HttpResponse<T> = await res.json()
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenSession}`,
+      },
+    });
 
-    if (resJson.details.status_code !== 200) {
-      HandleError(resJson.details.status_code, resJson.details.path)
-    }
+    const resJson: HttpResponse<T> = await res.json();
 
-    return resJson
+    return resJson;
   } catch (error) {
-    return error
+    return error;
   }
-}
+};
 
-export const postDataWithToken = async <T extends DataResponse>(url: string, body: any): Promise<HttpResponse<T>> => {
-  const tokenSession = await getTokenSession()
+export const postDataWithToken = async <T extends DataResponse>(
+  url: string,
+  body: any
+): Promise<HttpResponse<T>> => {
+  const tokenSession = await getTokenSession();
 
-  console.log(API_URL)
+  console.log(API_URL);
 
   const res: Response = await fetch(`${API_URL}${url}`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${tokenSession}`
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenSession}`,
     },
-    body: JSON.stringify(body)
-  })
-  const resJson: HttpResponse<T> = await res.json()
+    body: JSON.stringify(body),
+  });
+  const resJson: HttpResponse<T> = await res.json();
 
   if (resJson.details.status_code !== 200) {
-    HandleError(resJson.details.status_code)
+    HandleError(resJson.details.status_code);
   }
 
-  return resJson
-}
+  return resJson;
+};
 
 export const postDataBase64WithToken = async <T extends DataResponse>(
   url: string,
   body: any
 ): Promise<HttpResponse<T>> => {
-  const tokenSession = await getTokenSession()
+  const tokenSession = await getTokenSession();
 
   const res: Response = await fetch(`${API_URL}${url}`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/octet-stream',
-      Authorization: `Bearer ${tokenSession}`
+      Accept: "application/json",
+      "Content-Type": "application/octet-stream",
+      Authorization: `Bearer ${tokenSession}`,
     },
-    body: JSON.stringify(body)
-  })
-  const resJson: HttpResponse<T> = await res.json()
+    body: JSON.stringify(body),
+  });
+  const resJson: HttpResponse<T> = await res.json();
 
   if (resJson.details.status_code !== 200) {
-    HandleError(resJson.details.status_code)
+    HandleError(resJson.details.status_code);
   }
 
-  return resJson
-}
+  return resJson;
+};
 
-export const putDataWithToken = async <T extends DataResponse>(url: string, body: any): Promise<HttpResponse<T>> => {
-  const tokenSession = await getTokenSession()
+export const putDataWithToken = async <T extends DataResponse>(
+  url: string,
+  body: any
+): Promise<HttpResponse<T>> => {
+  const tokenSession = await getTokenSession();
   const res: Response = await fetch(`${API_URL}${url}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${tokenSession}`
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenSession}`,
     },
-    body: JSON.stringify(body)
-  })
-  const resJson: HttpResponse<T> = await res.json()
+    body: JSON.stringify(body),
+  });
+  const resJson: HttpResponse<T> = await res.json();
 
   if (resJson.details.status_code !== 200) {
-    HandleError(resJson.details.status_code)
+    HandleError(resJson.details.status_code);
   }
 
-  return resJson
-}
+  return resJson;
+};
 
-export const patchDataWithToken = async <T extends DataResponse>(url: string, body: any): Promise<HttpResponse<T>> => {
-  const tokenSession = await getTokenSession()
+export const patchDataWithToken = async <T extends DataResponse>(
+  url: string,
+  body: any
+): Promise<HttpResponse<T>> => {
+  const tokenSession = await getTokenSession();
   const res: Response = await fetch(`${API_URL}${url}`, {
-    method: 'PATCH',
+    method: "PATCH",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${tokenSession}`
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenSession}`,
     },
-    body: JSON.stringify(body)
-  })
-  const resJson: HttpResponse<T> = await res.json()
+    body: JSON.stringify(body),
+  });
+  const resJson: HttpResponse<T> = await res.json();
 
   if (resJson.details.status_code !== 200) {
-    HandleError(resJson.details.status_code)
+    HandleError(resJson.details.status_code);
   }
 
-  return resJson
-}
+  return resJson;
+};
 
 export const deleteDataWithToken = async <T extends DataResponse>(
   url: string,
   body?: any
 ): Promise<HttpResponse<T>> => {
-  const tokenSession = await getTokenSession()
+  const tokenSession = await getTokenSession();
 
   const init: RequestInit = {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${tokenSession}`
-    }
-  }
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenSession}`,
+    },
+  };
   if (body) {
     Object.assign(init, {
-      body: JSON.stringify(body)
-    } as RequestInit)
+      body: JSON.stringify(body),
+    } as RequestInit);
   }
-  const res: Response = await fetch(`${API_URL}${url}`, init)
-  const resJson: HttpResponse<T> = await res.json()
+  const res: Response = await fetch(`${API_URL}${url}`, init);
+  const resJson: HttpResponse<T> = await res.json();
 
   if (resJson.details.status_code !== 200) {
-    HandleError(resJson.details.status_code)
+    HandleError(resJson.details.status_code);
   }
 
-  return resJson
-}
+  return resJson;
+};
 
-export const getData = async <T extends DataResponse>(url: string): Promise<HttpResponse<T> | any> => {
+export const getData = async <T extends DataResponse>(
+  url: string
+): Promise<HttpResponse<T> | any> => {
   // let lang;
 
   // // if (typeof window !== 'undefined') {
@@ -187,14 +189,13 @@ export const getData = async <T extends DataResponse>(url: string): Promise<Http
 
   // console.log("INI LANGUAGE SEKARANG", useLang.getState().lang)
 
-
   try {
     const res: Response = await fetch(`${API_URL}${url}`, {
-      method: 'GET',
-      cache: 'no-store',
+      method: "GET",
+      cache: "no-store",
       headers: {
-        Accept: 'application/json'
-      }
+        Accept: "application/json",
+      },
     });
 
     const resJson: HttpResponse<T> = await res.json();
@@ -204,183 +205,193 @@ export const getData = async <T extends DataResponse>(url: string): Promise<Http
   }
 };
 
-export const getDataWithParam = async <T extends DataResponse>(url: string): Promise<HttpResponse<T> | any> => {
-
+export const getDataWithParam = async <T extends DataResponse>(
+  url: string
+): Promise<HttpResponse<T> | any> => {
   try {
     const res: Response = await fetch(`${API_URL}`, {
-      method: 'GET',
-      cache: 'no-store',
+      method: "GET",
+      cache: "no-store",
       headers: {
-        Accept: 'application/json'
-      }
-    })
-    const resJson: HttpResponse<T> = await res.json()
+        Accept: "application/json",
+      },
+    });
+    const resJson: HttpResponse<T> = await res.json();
 
-    return resJson
+    return resJson;
   } catch (error) {
-    return error
+    return error;
   }
-}
+};
 
-export const postData = async <T extends DataResponse>(url: string, body: any): Promise<HttpResponse<T> | any> => {
+export const postData = async <T extends DataResponse>(
+  url: string,
+  body: any
+): Promise<HttpResponse<T> | any> => {
   try {
     const res: Response = await fetch(`${API_URL}${url}`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(body)
-    })
+      body: JSON.stringify(body),
+    });
 
-    const resJson: HttpResponse<T> = await res.json()
+    const resJson: HttpResponse<T> = await res.json();
 
-    return resJson
+    return resJson;
   } catch (error) {
-    return error
+    return error;
   }
-}
+};
 
-export const putData = async <T extends DataResponse>(url: string, body: any): Promise<HttpResponse<T>> => {
+export const putData = async <T extends DataResponse>(
+  url: string,
+  body: any
+): Promise<HttpResponse<T>> => {
   const res: Response = await fetch(`${API_URL}${url}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(body)
-  })
+    body: JSON.stringify(body),
+  });
 
-  const resJson: HttpResponse<T> = await res.json()
+  const resJson: HttpResponse<T> = await res.json();
 
-  return resJson
-}
+  return resJson;
+};
 
-export const deleteData = async <T extends DataResponse>(url: string, body?: any): Promise<HttpResponse<T>> => {
+export const deleteData = async <T extends DataResponse>(
+  url: string,
+  body?: any
+): Promise<HttpResponse<T>> => {
   const init: RequestInit = {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    }
-  }
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  };
   if (body) {
     Object.assign(init, {
-      body: JSON.stringify(body)
-    } as RequestInit)
+      body: JSON.stringify(body),
+    } as RequestInit);
   }
-  const res: Response = await fetch(`${API_URL}${url}`, init)
+  const res: Response = await fetch(`${API_URL}${url}`, init);
 
-  const resJson: HttpResponse<T> = await res.json()
+  const resJson: HttpResponse<T> = await res.json();
 
-  return resJson
-}
+  return resJson;
+};
 
 export const postDataTokenFormData = async <T extends DataResponse>(
   url: string,
   body: any
 ): Promise<HttpResponse<T>> => {
-  const tokenSession = await getTokenSession()
+  const tokenSession = await getTokenSession();
 
-  const form_data = new FormData()
+  const form_data = new FormData();
 
   for (const key in body) {
-    if (typeof body[key] === 'object') {
+    if (typeof body[key] === "object") {
       if (body[key] instanceof File) {
-        form_data.append(key, body[key])
+        form_data.append(key, body[key]);
       } else {
         for (let i = 0; i < body[key].length; i++) {
-          form_data.append(key, body[key][i])
-          console.log(body[key][i])
+          form_data.append(key, body[key][i]);
+          console.log(body[key][i]);
         }
       }
     } else {
-      form_data.append(key, body[key])
+      form_data.append(key, body[key]);
     }
   }
 
   const res: Response = await fetch(`${API_URL}${url}`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${tokenSession}`
+      Accept: "application/json",
+      Authorization: `Bearer ${tokenSession}`,
     },
-    body: form_data
-  })
-  const resJson: HttpResponse<T> = await res.json()
+    body: form_data,
+  });
+  const resJson: HttpResponse<T> = await res.json();
 
-  return resJson
-}
+  return resJson;
+};
 
 export const putDataTokenFormData = async <T extends DataResponse>(
   url: string,
   body: any
 ): Promise<HttpResponse<T>> => {
-  const tokenSession = await getTokenSession()
+  const tokenSession = await getTokenSession();
 
-  const form_data = new FormData()
+  const form_data = new FormData();
 
   for (const key in body) {
-    if (typeof body[key] === 'object') {
+    if (typeof body[key] === "object") {
       if (body[key] instanceof File) {
-        form_data.append(key, body[key])
+        form_data.append(key, body[key]);
       } else {
         if (body[key] !== null) {
           for (let i = 0; i < body[key].length; i++) {
-            form_data.append(key, body[key][i])
-            console.log(body[key][i])
+            form_data.append(key, body[key][i]);
+            console.log(body[key][i]);
           }
         } else {
-          form_data.append(key, body[key])
+          form_data.append(key, body[key]);
         }
       }
     } else {
-      form_data.append(key, body[key])
+      form_data.append(key, body[key]);
     }
   }
 
   const res: Response = await fetch(`${API_URL}${url}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${tokenSession}`
+      Accept: "application/json",
+      Authorization: `Bearer ${tokenSession}`,
     },
-    body: form_data
-  })
-  const resJson: HttpResponse<T> = await res.json()
+    body: form_data,
+  });
+  const resJson: HttpResponse<T> = await res.json();
 
-  return resJson
-}
+  return resJson;
+};
 
 export const postDataFormData = async <T extends DataResponse>(
   url: string,
   body: any
 ): Promise<HttpResponse<T>> => {
-  const tokenSession = await getTokenSession()
+  const tokenSession = await getTokenSession();
 
-  const form_data = new FormData()
+  const form_data = new FormData();
 
-  console.log(body)
+  console.log(body);
 
   for (const key in body) {
-    if (typeof body[key] === 'object') {
+    if (typeof body[key] === "object") {
       if (body[key] instanceof File) {
-        form_data.append(key, body[key])
+        form_data.append(key, body[key]);
       } else {
         for (let i = 0; i < body[key].length; i++) {
-          form_data.append(key, body[key][i])
-          console.log(body[key][i])
+          form_data.append(key, body[key][i]);
+          console.log(body[key][i]);
         }
       }
     } else {
-      form_data.append(key, body[key])
+      form_data.append(key, body[key]);
     }
   }
 
   const res: Response = await fetch(`${API_URL}${url}`, {
-    method: 'POST',
-    body: form_data
-  })
-  const resJson: HttpResponse<T> = await res.json()
+    method: "POST",
+    body: form_data,
+  });
+  const resJson: HttpResponse<T> = await res.json();
 
-  return resJson
-}
+  return resJson;
+};
