@@ -25,7 +25,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={"bg-white"}>
         <AuthProvider>
-          <WrapperPrivatePage>{children}</WrapperPrivatePage>
+          {/* <WrapperPrivatePage>
+            </WrapperPrivatePage> */}
+          {children}
           <Toaster
             toastOptions={{
               duration: 4000,

@@ -4,6 +4,7 @@ import React, { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { AuthType } from "./type";
 import { CheckLoginCase } from "@/modules/auth/usecases/login/login.usecase";
+import { LogoutCase } from "@/modules/auth/usecases/logout/logout-usecase";
 
 const defaultProvider: AuthType = {
   user: null,
@@ -26,10 +27,12 @@ const AuthProvider = ({ children }: Props) => {
         if (getUser.success) {
           setUser(getUser.data ?? null);
         } else {
+          LogoutCase();
           setUser(null);
         }
       } catch (error) {
         console.error("Error during authentication:", error);
+        LogoutCase();
         setUser(null);
       } finally {
         setLoading(false); // Set loading state to false once authentication is done
@@ -40,8 +43,6 @@ const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     authenticationAuth();
   }, []);
-
-  console.log("render auth");
 
   const values = {
     user,

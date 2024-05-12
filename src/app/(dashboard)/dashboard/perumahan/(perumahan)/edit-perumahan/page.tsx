@@ -1,95 +1,111 @@
 "use client";
 
+import CardProperti from "@/app/(dashboard)/components/CardProperti";
+import CardPropertiDetail from "@/app/(dashboard)/components/CardPropertiDetail";
 import WrapperDashboard from "@/app/(dashboard)/components/wrapper/WrapperDashboard";
-import InputComponent from "@/components/form/Input";
-import SelectComponent from "@/components/form/Select";
-import TextAreaComponent from "@/components/form/TextArea";
-import { provinces } from "@/constants/provinces";
+import { UnitModel } from "@/models/unit-model";
+import { PerumahanResponse } from "@/modules/perumahan/models/perumahan-model";
+import {
+  GetPerumahanByIdCase,
+  GetUnitsPerumahanCase,
+} from "@/modules/perumahan/usecases/perumahan/perumahan.usecase";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FaArrowLeft } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
-/* eslint-disable react/no-unescaped-entities */
-const EditPerumahanPage: React.FC = () => {
+export default function EditPerumahanPage({
+  params,
+}: {
+  params: { id: number };
+}) {
   const router = useRouter();
+
+  const [data, setData] = useState<PerumahanResponse>();
+  const [units, setUnits] = useState<UnitModel[]>();
+
+  const getPerumahan = async () => {
+    const res = await GetPerumahanByIdCase(params.id);
+
+    if (res.success) {
+      setData(res.data!);
+    } else {
+      setData(undefined);
+    }
+  };
+
+  const getUnits = async () => {
+    const res = await GetUnitsPerumahanCase(params.id);
+
+    if (res.success) {
+      setUnits(res.data!);
+    } else {
+      setUnits(undefined);
+    }
+  };
+
+  useEffect(() => {
+    getPerumahan().then(() => {
+      getUnits();
+    });
+  }, []);
 
   return (
     <WrapperDashboard>
-      <form className="w-full">
-        <div className="relative flex justify-center items-center w-full mb-10">
-          <div
-            className="absolute left-0 cursor-pointer"
-            onClick={() => {
-              router.back();
-            }}
+      <div className="border-b mb-5 flex justify-between text-sm">
+        <div className="text-white flex items-center pb-2 pr-2  border-blue-600 uppercase">
+          <a href="#" className="font-semibold inline-block">
+            {data?.name}
+          </a>
+        </div>
+        {/* <div className="text-[#041252] flex items-center pb-2 pr-2 border-b-2 border-[#041252] uppercase">
+          <a href="#" className="font-semibold inline-block">
+            Kontrakan
+          </a>
+        </div>
+        <div className="text-[#041252] flex items-center pb-2 pr-2 border-b-2 border-[#041252] uppercase">
+          <a href="#" className="font-semibold inline-block">
+            Kostan
+          </a>
+        </div> */}
+        <div className="flex flex-row space-x-2">
+          <Link
+            href="/dashboard/perumahan/add-unit"
+            className=" p-2 rounded bg-green-500 text-center font-bold text-white mb-1 hover:text-slate-200"
           >
-            <FaArrowLeft
-              style={{
-                color: "black",
+            {" "}
+            Tambah Unit +{" "}
+          </Link>
+          <Link
+            href="/dashboard/perumahan/edit-perumahan"
+            className=" p-2 rounded bg-blue-500 text-center font-bold text-white mb-1 hover:text-slate-200"
+          >
+            {" "}
+            Edit Perumahan{" "}
+          </Link>
+          <Link
+            href="/dashboard/perumahan/add"
+            className=" p-2 rounded bg-red-500 text-center font-bold text-white mb-1 hover:text-slate-200"
+          >
+            {" "}
+            Hapus Perumahan{" "}
+          </Link>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+        {units?.map((item, index) => {
+          return (
+            <CardPropertiDetail
+              key={index}
+              onClick={() => {
+                router.push(`/dashboard/perumahan/detail-unit/${item.id}`);
               }}
+              type="Perumahan"
+              data={item}
             />
-          </div>
-          <h1 className="font-bold text-2xl text-[#0D1857]">Edit Perumahan</h1>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full px-3 mb-6 md:mb-0">
-            <InputComponent title="Nama Perusahaan" onChange={() => {}} />
-          </div>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full px-3">
-            <TextAreaComponent title="Alamat" />
-          </div>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-2">
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <SelectComponent data={provinces} title="Provinsi" />
-          </div>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <SelectComponent data={provinces} title="Kota" />
-          </div>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <InputComponent
-              title="Kode Pos"
-              onChange={() => {}}
-              type="number"
-            />
-          </div>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-2">
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <InputComponent
-              title="Jumlah Unit"
-              onChange={() => {}}
-              type="number"
-              disabled
-            />
-          </div>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <SelectComponent data={provinces} title="Periode Pembayaran" />
-          </div>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <InputComponent title="Kode Unit" onChange={() => {}} />
-          </div>
-        </div>
-        <div className="flex w-full justify-center my-5 items-center space-x-5">
-          <button
-            type="submit"
-            className="py-2 px-3 rounded  text-white bg-blue-500 font-bold"
-          >
-            Submit
-          </button>
-          <div
-            className="py-2 px-3 rounded  text-black bg-white font-bold cursor-pointer"
-            onClick={() => {
-              router.back();
-            }}
-          >
-            Cancel
-          </div>
-        </div>
-      </form>
+          );
+        })}
+      </div>
     </WrapperDashboard>
   );
-};
-
-export default EditPerumahanPage;
+}

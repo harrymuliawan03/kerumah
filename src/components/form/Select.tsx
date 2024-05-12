@@ -3,9 +3,15 @@ import React, { SelectHTMLAttributes } from "react";
 interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
   title: string;
   data: { id: string; nama: string }[];
+  selected: string;
 }
 
-const SelectComponent: React.FC<Props> = ({ title, data, ...inputProps }) => {
+const SelectComponent: React.FC<Props> = ({
+  title,
+  data,
+  selected,
+  ...inputProps
+}) => {
   return (
     <>
       <label
@@ -21,6 +27,13 @@ const SelectComponent: React.FC<Props> = ({ title, data, ...inputProps }) => {
           {...inputProps}
         >
           {data.map((item, index) => {
+            if (selected == item.nama) {
+              return (
+                <option key={item.id} selected>
+                  {item.nama}
+                </option>
+              );
+            }
             return <option key={item.id}>{item.nama}</option>;
           })}
         </select>

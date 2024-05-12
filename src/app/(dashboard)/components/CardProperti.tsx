@@ -1,10 +1,13 @@
 "use client";
 
+import { PropertyModel } from "@/models/property-model";
 import Image from "next/image";
 import React from "react";
 
 type Props = {
   onClick?: () => void;
+  type: "Perumahan" | "Kontrakan" | "Kostan";
+  data: PropertyModel;
 };
 
 const CardProperti: React.FC<Props> = (props) => {
@@ -19,7 +22,7 @@ const CardProperti: React.FC<Props> = (props) => {
             src="/assets/images/perumahan1.jpeg"
             width={500}
             height={70}
-            alt="Perumahan"
+            alt={props.type}
           />
           {/* <img
             className="w-full"
@@ -30,22 +33,22 @@ const CardProperti: React.FC<Props> = (props) => {
         </div>
         <div>
           <div className="text-xs absolute top-0 right-0 bg-indigo-600 px-4 py-2 text-white mt-3 mr-3 hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out">
-            Cooking
+            {props.type}
           </div>
         </div>
       </div>
       <div className="px-6 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-3 gap-2 py-4 bg-slate-500">
         <div className="p-2 bg-[#d5b150] shadow-lg flex flex-col items-center text-white rounded-xl">
           <p>Ruangan</p>
-          <p>20</p>
+          <p>{props.data.unit_count}</p>
         </div>
         <div className="p-2 bg-[#a555e2] shadow-lg flex flex-col items-center text-white rounded-xl">
           <p>Terisi</p>
-          <p>20</p>
+          <p>{props.data.unit_filled}</p>
         </div>
         <div className="p-2 bg-[#5fe79a] shadow-lg flex flex-col items-center text-white rounded-xl">
           <p>Tersedia</p>
-          <p>20</p>
+          <p>{props.data.unit_available}</p>
         </div>
       </div>
     </div>

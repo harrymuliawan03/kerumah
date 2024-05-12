@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const { setUser } = useAuth();
+  const { setUser, user } = useAuth();
 
   const handleLogout = async () => {
     LogoutCase();
@@ -32,8 +32,6 @@ const Navbar: React.FC = () => {
       router.replace("/login");
     }, 50);
   };
-
-  const { user } = useAuth();
 
   useEffect(() => {
     if (pathname !== "/home" && pathname !== "/") {
@@ -129,18 +127,32 @@ const Navbar: React.FC = () => {
 
           <div className="text-center hidden lg:flex space-x-2 justify-center items-center">
             {user != null ? (
-              <div
-                className={`bg-[#F4F5FB] rounded-full p-2`}
-                onClick={handleLogout}
-              >
-                <p
-                  className={`text-xs font-bold ${
-                    pathname == "/login" ? "text-yellow-500" : "text-black"
-                  } px-2 border-yellow-500 cursor-pointer`}
+              <>
+                <div
+                  className={`bg-blue-500 hover:bg-white rounded-full p-2 border-2 border-yellow-500 group transition duration-200 cursor-pointer`}
+                  onClick={() => {
+                    router.push("/dashboard");
+                  }}
                 >
-                  Logout
-                </p>
-              </div>
+                  <p
+                    className={`text-xs font-bold text-white group-hover:text-blue-500 px-2 transition duration-200`}
+                  >
+                    Dashboard
+                  </p>
+                </div>
+                <div
+                  className={`bg-[#F4F5FB] rounded-full p-2`}
+                  onClick={handleLogout}
+                >
+                  <p
+                    className={`text-xs font-bold ${
+                      pathname == "/login" ? "text-yellow-500" : "text-black"
+                    } px-2 border-yellow-500 cursor-pointer`}
+                  >
+                    Logout
+                  </p>
+                </div>
+              </>
             ) : (
               <>
                 <div

@@ -23,6 +23,8 @@ export const getDataWithToken = async <T extends DataResponse>(
   url: string
 ): Promise<HttpResponse<T> | any> => {
   const tokenSession = await getTokenSession();
+  console.log(tokenSession);
+  console.log(url);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
 

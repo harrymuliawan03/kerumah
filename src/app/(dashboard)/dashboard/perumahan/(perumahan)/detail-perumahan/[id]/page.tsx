@@ -3,18 +3,58 @@
 import CardProperti from "@/app/(dashboard)/components/CardProperti";
 import CardPropertiDetail from "@/app/(dashboard)/components/CardPropertiDetail";
 import WrapperDashboard from "@/app/(dashboard)/components/wrapper/WrapperDashboard";
+import { UnitModel } from "@/models/unit-model";
+import { PerumahanResponse } from "@/modules/perumahan/models/perumahan-model";
+import {
+  GetPerumahanByIdCase,
+  GetUnitsPerumahanCase,
+} from "@/modules/perumahan/usecases/perumahan/perumahan.usecase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function PerumahanPage() {
+export default function DetailPerumahanPage({
+  params,
+}: {
+  params: { id: number };
+}) {
   const router = useRouter();
+
+  const [data, setData] = useState<PerumahanResponse>();
+  const [units, setUnits] = useState<UnitModel[]>();
+
+  const getPerumahan = async () => {
+    const res = await GetPerumahanByIdCase(params.id);
+
+    if (res.success) {
+      setData(res.data!);
+    } else {
+      setData(undefined);
+    }
+  };
+
+  const getUnits = async () => {
+    const res = await GetUnitsPerumahanCase(params.id);
+
+    if (res.success) {
+      setUnits(res.data!);
+    } else {
+      setUnits(undefined);
+    }
+  };
+
+  useEffect(() => {
+    getPerumahan().then(() => {
+      getUnits();
+    });
+  }, []);
 
   return (
     <WrapperDashboard>
       <div className="border-b mb-5 flex justify-between text-sm">
         <div className="text-white flex items-center pb-2 pr-2  border-blue-600 uppercase">
           <a href="#" className="font-semibold inline-block">
-            Perumahan Meruya Utara
+            {data?.name}
           </a>
         </div>
         {/* <div className="text-[#041252] flex items-center pb-2 pr-2 border-b-2 border-[#041252] uppercase">
@@ -53,13 +93,18 @@ export default function PerumahanPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-        <CardPropertiDetail
-          onClick={() => {
-            router.push("/dashboard/perumahan/detail-unit");
-          }}
-        />
-        <CardPropertiDetail />
-        <CardPropertiDetail />
+        {units?.map((item, index) => {
+          return (
+            <CardPropertiDetail
+              key={index}
+              onClick={() => {
+                router.push(`/dashboard/perumahan/detail-unit/${item.id}`);
+              }}
+              type="Perumahan"
+              data={item}
+            />
+          );
+        })}
       </div>
     </WrapperDashboard>
   );
