@@ -2,9 +2,13 @@ import React, { InputHTMLAttributes } from "react";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   title: string;
+  validate?: {
+    error: boolean
+    message: string
+  }
 }
 
-const InputComponent: React.FC<Props> = ({ title, ...inputProps }) => {
+const InputComponent: React.FC<Props> = ({ title, validate, ...inputProps }) => {
   return (
     <>
       <label
@@ -15,10 +19,10 @@ const InputComponent: React.FC<Props> = ({ title, ...inputProps }) => {
       </label>
       <input
         {...inputProps}
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+        className={`appearance-none block w-full bg-gray-100 ${validate?.error && 'border-red-500'} text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
         id="grid-first-name"
       />
-      {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
+      <p className="text-red-500 text-xs italic">{validate?.message}</p>
     </>
   );
 };

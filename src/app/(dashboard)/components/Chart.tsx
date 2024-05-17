@@ -15,6 +15,7 @@ type Props = {
   labels: string[];
   data: number[];
   title: string;
+  max: number,
 };
 
 const Chart = (props: Props) => {
@@ -52,7 +53,7 @@ const Chart = (props: Props) => {
     scales: {
       y: {
         min: 0,
-        max: 100,
+        max: props.max != 0 ? props.max < 10 ? props.max * 10 : props.max : 100,
       },
     },
   };

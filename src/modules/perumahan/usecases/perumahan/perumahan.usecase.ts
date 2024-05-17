@@ -1,5 +1,5 @@
 import { ResponseUseCase } from "@/models/api-response-models";
-import { UnitModel, UpdateUnitRequest } from "@/models/unit-model";
+import { UnitModel, UpdateUnitRequest, UpdateUnitType } from "@/models/unit-model";
 import Cookies from "js-cookie";
 import { PerumahanResponse } from "../../models/perumahan-model";
 import {
@@ -84,7 +84,7 @@ export const GetUnitByIdCase = async (
 
 export const UpdateUnitCase = async (
   id: number,
-  body: UpdateUnitRequest
+  body: UpdateUnitType
 ): Promise<ResponseUseCase<UnitModel>> => {
   const res = await UpdateUnitRepo<UnitModel>(id, body);
   if (res?.success) {

@@ -74,8 +74,8 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="container mx-auto py-5">
-        <div className="flex justify-center lg:justify-center space-x-10 mx-5">
-          <div className={`text-center ml-2 cursor-pointer`}>
+        <div className="flex md:justify-center space-x-10 mx-5">
+          <div className={`hidden lg:block ml-2 cursor-pointer`}>
             <Image
               onClick={() => router.push("/home")}
               src={"/assets/images/kerumah_logo.png"}
@@ -86,7 +86,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <div
-            className={`text-center lg-inline-flex mt-1 hidden lg:flex items-center font-semibold text-pantoneA`}
+            className={`text-center lg-inline-flex mt-1 hidden md:flex items-center font-semibold text-pantoneA`}
           >
             <p
               className={`text-sm ${
@@ -125,7 +125,7 @@ const Navbar: React.FC = () => {
             </p>
           </div>
 
-          <div className="text-center hidden lg:flex space-x-2 justify-center items-center">
+          <div className="text-center hidden md:flex space-x-2 justify-center items-center">
             {user != null ? (
               <>
                 <div
@@ -183,10 +183,10 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          <div className="lg:hidden">
+          <div className="md:hidden">
             <button
               className={`focus:outline-none ${
-                isScrolled ? "text-primary" : "text-white"
+                isScrolled ? "text-primary" : "text-black"
               }`}
               onClick={toggleMenu}
             >

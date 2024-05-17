@@ -29,7 +29,7 @@ export default function PerumahanPage() {
   return (
     <WrapperDashboard>
       <div className="border-b mb-5 flex justify-between text-sm">
-        <div className="text-white flex items-center pb-2 pr-2  border-blue-600 uppercase">
+        <div className="text-black flex items-center pb-2 pr-2 border-blue-600 uppercase">
           <a href="#" className="font-semibold inline-block">
             Perumahan
           </a>

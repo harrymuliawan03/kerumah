@@ -12,7 +12,7 @@ export type UnitModel = {
   alamat: string | null;
   provinsi: string | null;
   kota: string | null;
-  kode_pos: number | null;
+  kode_pos: string | null;
   tanggal_mulai: string | null;
   tanggal_jatuh_tempo: string | null;
 };
@@ -28,4 +28,17 @@ export type UpdateUnitRequest = {
   kode_pos: number | null;
   tanggal_mulai: string | null;
   tanggal_jatuh_tempo: string | null;
+};
+
+export type UpdateUnitType = {
+  status: string;
+  periode_pembayaran: string;
+  nama_penghuni: string;
+  no_identitas: string;
+  alamat: string;
+  provinsi?: string | null;
+  kota?: string | null;
+  kode_pos?: string | null;
+  tanggal_mulai?: string | null;
+  tanggal_jatuh_tempo?: string | null;
 };

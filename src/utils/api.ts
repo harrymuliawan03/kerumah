@@ -134,10 +134,11 @@ export const patchDataWithToken = async <T extends DataResponse>(
     body: JSON.stringify(body),
   });
   const resJson: HttpResponse<T> = await res.json();
+  // console.log(resJson)
 
-  if (resJson.details.status_code !== 200) {
-    HandleError(resJson.details.status_code);
-  }
+  // if (resJson.details.status_code !== 200) {
+  //   HandleError(resJson.details.status_code);
+  // }
 
   return resJson;
 };

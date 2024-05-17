@@ -4,8 +4,10 @@ import WrapperDashboard from "@/app/(dashboard)/components/wrapper/WrapperDashbo
 import InputComponent from "@/components/form/Input";
 import SelectComponent from "@/components/form/Select";
 import TextAreaComponent from "@/components/form/TextArea";
+import { cities } from "@/constants/city";
 import { periode } from "@/constants/periode";
 import { provinces } from "@/constants/provinces";
+import { useDashboard } from "@/contexts/useHooks";
 import { UnitModel } from "@/models/unit-model";
 import { GetUnitByIdCase } from "@/modules/perumahan/usecases/perumahan/perumahan.usecase";
 import Link from "next/link";
@@ -17,11 +19,31 @@ import { FaArrowLeft } from "react-icons/fa";
 const DetailUnitPage = ({ params }: { params: { id: number } }) => {
   const router = useRouter();
   const [unit, setUnit] = useState<UnitModel>();
+  const [kota, setKota] = useState<{id?: string, nama: string}[]>()
+  const [dueDate, setDueDate]= useState<Date>()
+  const currentDate = new Date();
+  const {setIsOpenModal} = useDashboard()
 
+
+  
+  const handleFilterCity = (prov: string) => {
+    const filteredData = cities.find(item => item.provinsi.toLowerCase() == prov.toLocaleLowerCase());
+    
+    const filteredCity = filteredData?.kota.map((kota, index) => ({
+      id: String(index + 1),
+      nama: kota
+    }));
+    
+    setKota(filteredCity)
+  };
+  
   const getUnit = async () => {
     const res = await GetUnitByIdCase(params.id);
 
     if (res.success) {
+      handleFilterCity(res.data?.provinsi ?? '')
+      const date = new Date(String(res.data?.tanggal_jatuh_tempo));
+      setDueDate(date)
       setUnit(res.data!);
     } else {
       setUnit(undefined);
@@ -58,20 +80,23 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
                 {" "}
                 Edit{" "}
               </Link>
-              <Link
-                href="/dashboard/perumahan/edit-unit"
-                className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
-              >
-                {" "}
-                Bayar{" "}
-              </Link>
-              <Link
-                href="/dashboard/perumahan/add"
+              {dueDate && currentDate > dueDate &&
+                <Link
+                  href="/dashboard/perumahan/edit-unit"
+                  className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
+                >
+                  {" "}
+                  Bayar{" "}
+                </Link>
+              }
+              <button
                 className=" p-2 rounded bg-red-500 text-center font-bold text-white hover:text-slate-200"
+                type="button"
+                onClick={() => setIsOpenModal(true)}
               >
                 {" "}
-                Arsipkan{" "}
-              </Link>
+                Hapus Unit{" "}
+              </button>
             </div>
           </div>
         </div>
@@ -83,19 +108,21 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
             {" "}
             Edit{" "}
           </Link>
-          <Link
-            href="/dashboard/perumahan/edit-unit"
-            className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
-          >
-            {" "}
-            Bayar{" "}
-          </Link>
+          {dueDate && currentDate > dueDate &&
+            <Link
+              href="/dashboard/perumahan/edit-unit"
+              className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
+            >
+              {" "}
+              Bayar{" "}
+            </Link>
+          }
           <Link
             href="/dashboard/perumahan/add"
             className=" p-2 rounded bg-red-500 text-center font-bold text-white hover:text-slate-200"
           >
             {" "}
-            Arsipkan{" "}
+            Hapus Unit{" "}
           </Link>
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
@@ -166,7 +193,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <SelectComponent
               selected={unit?.kota ?? ""}
-              data={provinces}
+              data={kota ?? []}
               title="Kota"
               disabled
             />
@@ -188,7 +215,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
               onChange={() => {}}
               value={unit?.tanggal_mulai ?? ""}
               type="date"
-              disabled
+              disabled={unit?.tanggal_mulai != undefined}
             />
           </div>
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">

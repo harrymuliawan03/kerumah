@@ -22,17 +22,17 @@ export default function HomePage() {
 
   return (
     <WrapperPage>
-      <div className="w-full h-[500px]">
-        <div className="relative w-full h-[500px]">
+      <div className="w-full h-[800px]">
+        <div className="relative w-full h-[800px]">
           <Image
-            src="/assets/images/bg-2.jpg"
+            src="/assets/images/bg-7.jpeg"
             alt="Picture of the author"
             fill
             // priority
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "cover",objectPosition: "center top" }}
           />
-          <div className="absolute flex w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="px-4 py-5 rounded-2xl text-center bg-black bg-opacity-45 mx-[10%]">
+          <div className="absolute flex px-20 w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="px-4 py-5 h-[50vh] flex flex-col justify-center items-center rounded-2xl text-center bg-black bg-opacity-45 mx-[10%]">
               <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-4xl">
                 Solusi Lengkap Manajemen Properti di Era Digital
               </h1>

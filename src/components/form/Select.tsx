@@ -1,17 +1,25 @@
-import React, { SelectHTMLAttributes } from "react";
+import React, { SelectHTMLAttributes, useEffect } from "react";
 
 interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
   title: string;
-  data: { id: string; nama: string }[];
+  data: { id?: string; nama: string }[];
   selected: string;
+  validate?: {
+    error: boolean
+    message: string
+  }
 }
 
 const SelectComponent: React.FC<Props> = ({
   title,
   data,
   selected,
+  validate,
   ...inputProps
 }) => {
+
+  let isSelected = data?.filter((item) => item.nama == selected).length > 0;
+
   return (
     <>
       <label
@@ -22,10 +30,14 @@ const SelectComponent: React.FC<Props> = ({
       </label>
       <div className="relative">
         <select
-          className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          className={`block appearance-none w-full bg-gray-100 border ${validate?.error ? 'border-red-500' : 'border-gray-200'} text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white `}
           id="grid-state"
           {...inputProps}
         >
+          {!isSelected && 
+          <option disabled selected>
+            Belum ada data terpilih
+            </option>}
           {data.map((item, index) => {
             if (selected == item.nama) {
               return (
@@ -46,6 +58,7 @@ const SelectComponent: React.FC<Props> = ({
             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
           </svg>
         </div>
+      <p className="text-red-500 text-xs italic">{validate?.message}</p>
       </div>
     </>
   );

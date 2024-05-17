@@ -1,5 +1,5 @@
 import { DataResponse, HttpResponse } from "@/models/api-response-models";
-import { UpdateUnitRequest } from "@/models/unit-model";
+import { UpdateUnitRequest, UpdateUnitType } from "@/models/unit-model";
 import { getDataWithToken, patchDataWithToken } from "@/utils/api";
 
 export const GetPerumahanRepo = async <T extends DataResponse>() => {
@@ -34,7 +34,7 @@ export const GetUnitsByIdRepo = async <T extends DataResponse>(id: number) => {
 
 export const UpdateUnitRepo = async <T extends DataResponse>(
   id: number,
-  body: UpdateUnitRequest
+  body: UpdateUnitType
 ) => {
   const res: HttpResponse<T> = await patchDataWithToken(`/unit/${id}`, body);
 
