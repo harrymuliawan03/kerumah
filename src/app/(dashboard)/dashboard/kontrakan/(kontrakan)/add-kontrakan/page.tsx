@@ -6,22 +6,19 @@ import SelectComponent from "@/components/form/Select";
 import TextAreaComponent from "@/components/form/TextArea";
 import { periode } from "@/constants/periode";
 import { provinces } from "@/constants/provinces";
-import { UnitModel, UpdateUnitRequest, UpdateUnitType } from "@/models/unit-model";
-import { CreatePerumahanCase, GetUnitByIdCase, UpdateUnitCase } from "@/modules/perumahan/usecases/perumahan/perumahan.usecase";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { unitUpdateSchema } from "@/models/schema/unit-schema";
 import { cities } from "@/constants/city";
 import toast from "react-hot-toast";
-import { CreatePerumahanType } from "@/modules/perumahan/models/perumahan-model";
-import { PerumahanCreateSchema } from "@/modules/perumahan/models/schema";
+import { CreateKontrakanType } from "@/modules/kontrakan/models/kontrakan-model";
+import { CreateKontrakanCase } from "@/modules/kontrakan/usecases/kontrakan/kontrakan.usecase";
+import { KontrakanCreateSchema } from "@/modules/kontrakan/models/schema";
 
 /* eslint-disable react/no-unescaped-entities */
-const AddPerumahanPage = () => {
+const AddKontrakanPage = () => {
   const router = useRouter();
 
   const [kota, setKota] = useState<{id?: string, nama: string}[]>()
@@ -37,15 +34,15 @@ const AddPerumahanPage = () => {
     setKota(filteredCity)
   };
 
-  const onSubmit = async (data: CreatePerumahanType) => {
+  const onSubmit = async (data: CreateKontrakanType) => {
 
-    const res = await CreatePerumahanCase(data)
+    const res = await CreateKontrakanCase(data)
     
     if(res.success){
-      toast.success("Berhasil membuat perumahan");
-      router.push('/dashboard/perumahan');
+      toast.success("Berhasil membuat kontrakan");
+      router.push('/dashboard/kontrakan');
     }else{
-      toast.error("Gagal membuat perumahan");
+      toast.error("Gagal membuat kontrakan");
     }
   }
 
@@ -55,9 +52,9 @@ const AddPerumahanPage = () => {
     setValue,
     getValues,
     formState: { errors }
-  } = useForm<CreatePerumahanType>({
+  } = useForm<CreateKontrakanType>({
     mode: 'all',
-    resolver: yupResolver(PerumahanCreateSchema)
+    resolver: yupResolver(KontrakanCreateSchema)
   })
   
   return (
@@ -79,7 +76,7 @@ const AddPerumahanPage = () => {
             />
           </div>
           <div className="flex flex-col justify-center items-center space-y-2">
-            <h1 className="font-bold text-2xl text-[#0D1857]">Tambah Perumahan</h1>
+            <h1 className="font-bold text-2xl text-[#0D1857]">Tambah Kontrakan</h1>
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
@@ -89,7 +86,7 @@ const AddPerumahanPage = () => {
               control={control}
               render={({ field }) => (
                 <InputComponent
-                  title="Nama Perumahan"
+                  title="Nama Kontrakan"
                   onChange={(e) => {
                     const newValue = e.target.value;
                     field.onChange(newValue);
@@ -278,4 +275,4 @@ const AddPerumahanPage = () => {
   );
 };
 
-export default AddPerumahanPage;
+export default AddKontrakanPage;

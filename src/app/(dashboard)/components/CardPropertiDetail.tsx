@@ -21,8 +21,8 @@ const CardPropertiDetail: React.FC<Props> = (props) => {
             props.data.status == "empty"
               ? "bg-green-500"
               : props.data.status == "filled"
-              ? "bg-red-500"
-              : "bg-purple-500"
+              ? "bg-blue-500"
+              : "bg-red-500"
           } flex flex-col justify-center items-center`}
         >
           <h1 className="font-bold text-[26px] text-white">

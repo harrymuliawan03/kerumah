@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "@/hooks/useHooks";
+import { useAuth } from "@/contexts/useHooks";
 import { LogoutCase } from "@/modules/auth/usecases/logout/logout-usecase";
 import Image from "next/image";
 import Link from "next/link";

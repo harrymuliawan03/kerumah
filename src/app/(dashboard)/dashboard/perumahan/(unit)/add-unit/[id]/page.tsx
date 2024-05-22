@@ -5,16 +5,32 @@ import InputComponent from "@/components/form/Input";
 import SelectComponent from "@/components/form/Select";
 import TextAreaComponent from "@/components/form/TextArea";
 import { provinces } from "@/constants/provinces";
+import { CreateUnitPerumahanCase } from "@/modules/perumahan/usecases/perumahan/perumahan.usecase";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa";
 
 /* eslint-disable react/no-unescaped-entities */
-const AddUnitPage: React.FC = () => {
+const AddUnitPage = ({params} : {params: {id: number}}) => {
   const router = useRouter();
+  const [jmlUnit, setJmlUnit] = useState<number>();
 
+  const handleCreateUnit = async () => {
+    if(jmlUnit){
+      const res = await CreateUnitPerumahanCase({id_parent: params.id, jumlah_unit: jmlUnit})
+      if(res.success){
+        toast.success('Berhasil membuat unit')
+        router.push(`/dashboard/perumahan/detail-perumahan/${params.id}`)
+      }else{
+        toast.error('Gagal membuat unit')
+      }
+    }
+  }
+  
   return (
     <WrapperDashboard>
-      <form className="w-full">
+      <div className="w-full">
         <div className="relative flex justify-center items-center w-full mb-10">
           <div
             className="absolute left-0 cursor-pointer"
@@ -34,14 +50,16 @@ const AddUnitPage: React.FC = () => {
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <InputComponent
               title="Jumlah Unit"
-              onChange={() => {}}
+              onChange={(t) => {
+                setJmlUnit(parseInt(t.target.value));
+              }}
               type="number"
             />
           </div>
           <div className="flex w-full md:w-1/2 justify-start my-5 items-center space-x-5">
             <button
-              type="submit"
               className="py-2 px-3 rounded  text-white bg-blue-500 font-bold"
+              onClick={() => handleCreateUnit()}
             >
               Submit
             </button>
@@ -55,7 +73,7 @@ const AddUnitPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </WrapperDashboard>
   );
 };

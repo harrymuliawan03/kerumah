@@ -7,6 +7,12 @@ export const unitUpdateSchema = yup.object().shape({
     periode_pembayaran: yup
     .string()
     .required('Periode pembayaran wajib diisi'),
+    purchase_type: yup
+    .string()
+    .required('Purchase type wajib diisi'),
+    tenor: yup
+    .string()
+    .required('Tenor wajib diisi'),
     nama_penghuni: yup
     .string()
     .required('Nama penghuni wajib diisi'),

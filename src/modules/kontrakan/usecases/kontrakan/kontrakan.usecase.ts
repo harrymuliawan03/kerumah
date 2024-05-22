@@ -1,24 +1,13 @@
 import { ResponseUseCase } from "@/models/api-response-models";
 import { CreateUnitRequest, UnitModel, UpdateUnitRequest, UpdateUnitType } from "@/models/unit-model";
 import Cookies from "js-cookie";
-import { CreatePerumahanType, PerumahanResponse, UpdatePerumahanType } from "../../models/perumahan-model";
-import {
-  CreatePerumahanRepo,
-  CreateUnitPerumahanRepo,
-  DeletePerumahanRepo,
-  DeleteUnitPerumahanRepo,
-  GetPerumahanByIdRepo,
-  GetPerumahanRepo,
-  GetUnitsByIdRepo,
-  GetUnitsPerumahanRepo,
-  UpdatePerumahanRepo,
-  UpdateUnitRepo,
-} from "../../repositories/perumahan/perumahan.repository";
+import { CreateKontrakanType, KontrakanResponse, UpdateKontrakanType } from "../../models/kontrakan-model";
+import { CreateKontrakanRepo, CreateUnitKontrakanRepo, DeleteKontrakanRepo, DeleteUnitKontrakanRepo, GetKontrakanByIdRepo, GetKontrakanRepo, GetUnitsByIdRepo, GetUnitsKontrakanRepo, UpdateKontrakanRepo, UpdateUnitRepo } from "../../repositories/kontrakan/kontrakan.repository";
 
-export const GetPerumahanCase = async (): Promise<
-  ResponseUseCase<PerumahanResponse[]>
+export const GetKontrakanCase = async (): Promise<
+  ResponseUseCase<KontrakanResponse[]>
 > => {
-  const res = await GetPerumahanRepo<PerumahanResponse[]>();
+  const res = await GetKontrakanRepo<KontrakanResponse[]>();
   if (res?.success) {
     return {
       success: true,
@@ -33,10 +22,10 @@ export const GetPerumahanCase = async (): Promise<
   };
 };
 
-export const GetPerumahanByIdCase = async (
+export const GetKontrakanByIdCase = async (
   id: number
-): Promise<ResponseUseCase<PerumahanResponse>> => {
-  const res = await GetPerumahanByIdRepo<PerumahanResponse>(id);
+): Promise<ResponseUseCase<KontrakanResponse>> => {
+  const res = await GetKontrakanByIdRepo<KontrakanResponse>(id);
   if (res?.success) {
     return {
       success: true,
@@ -51,10 +40,10 @@ export const GetPerumahanByIdCase = async (
   };
 };
 
-export const GetUnitsPerumahanCase = async (
+export const GetUnitsKontrakanCase = async (
   id: number
 ): Promise<ResponseUseCase<UnitModel[]>> => {
-  const res = await GetUnitsPerumahanRepo<UnitModel[]>(id);
+  const res = await GetUnitsKontrakanRepo<UnitModel[]>(id);
   if (res?.success) {
     return {
       success: true,
@@ -107,10 +96,10 @@ export const UpdateUnitCase = async (
 };
 
 
-export const DeleteUnitPerumahanCase = async (
+export const DeleteUnitKontrakanCase = async (
   id: number,
 ): Promise<ResponseUseCase<UnitModel>> => {
-  const res = await DeleteUnitPerumahanRepo<UnitModel>(id);
+  const res = await DeleteUnitKontrakanRepo<UnitModel>(id);
   if (res?.success) {
     return {
       success: true,
@@ -125,10 +114,10 @@ export const DeleteUnitPerumahanCase = async (
   };
 };
 
-export const CreateUnitPerumahanCase = async (
+export const CreateUnitKontrakanCase = async (
   body: CreateUnitRequest
 ): Promise<ResponseUseCase<UnitModel>> => {
-  const res = await CreateUnitPerumahanRepo<UnitModel>(body);
+  const res = await CreateUnitKontrakanRepo<UnitModel>(body);
   if (res?.success) {
     return {
       success: true,
@@ -144,11 +133,11 @@ export const CreateUnitPerumahanCase = async (
 };
 
 
-export const UpdatePerumahanCase = async (
+export const UpdateKontrakanCase = async (
   id: number,
-  body: UpdatePerumahanType
-): Promise<ResponseUseCase<PerumahanResponse>> => {
-  const res = await UpdatePerumahanRepo<PerumahanResponse>(id, body);
+  body: UpdateKontrakanType
+): Promise<ResponseUseCase<KontrakanResponse>> => {
+  const res = await UpdateKontrakanRepo<KontrakanResponse>(id, body);
   if (res?.success) {
     return {
       success: true,
@@ -163,10 +152,10 @@ export const UpdatePerumahanCase = async (
   };
 };
 
-export const DeletePerumahanCase = async (
+export const DeleteKontrakanCase = async (
   id: number,
-): Promise<ResponseUseCase<PerumahanResponse>> => {
-  const res = await DeletePerumahanRepo<PerumahanResponse>(id);
+): Promise<ResponseUseCase<KontrakanResponse>> => {
+  const res = await DeleteKontrakanRepo<KontrakanResponse>(id);
   if (res?.success) {
     return {
       success: true,
@@ -181,10 +170,10 @@ export const DeletePerumahanCase = async (
   };
 };
 
-export const CreatePerumahanCase = async (
-  body: CreatePerumahanType
-): Promise<ResponseUseCase<PerumahanResponse>> => {
-  const res = await CreatePerumahanRepo<PerumahanResponse>(body);
+export const CreateKontrakanCase = async (
+  body: CreateKontrakanType
+): Promise<ResponseUseCase<KontrakanResponse>> => {
+  const res = await CreateKontrakanRepo<KontrakanResponse>(body);
   if (res?.success) {
     return {
       success: true,

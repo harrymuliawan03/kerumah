@@ -6,8 +6,7 @@ import SelectComponent from "@/components/form/Select";
 import TextAreaComponent from "@/components/form/TextArea";
 import { periode } from "@/constants/periode";
 import { provinces } from "@/constants/provinces";
-import { UnitModel, UpdateUnitRequest, UpdateUnitType } from "@/models/unit-model";
-import { GetUnitByIdCase, UpdateUnitCase } from "@/modules/perumahan/usecases/perumahan/perumahan.usecase";
+import { UnitModel,  UpdateUnitType } from "@/models/unit-model";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -18,6 +17,7 @@ import { unitUpdateSchema } from "@/models/schema/unit-schema";
 import { cities } from "@/constants/city";
 import toast from "react-hot-toast";
 import { purchaseTypeData } from "@/constants/purchase_type";
+import { GetUnitByIdCase, UpdateUnitCase } from "@/modules/kontrakan/usecases/kontrakan/kontrakan.usecase";
 
 /* eslint-disable react/no-unescaped-entities */
 const DetailUnitPage = ({ params }: { params: { id: number } }) => {
@@ -137,7 +137,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
             <div className="hidden md:flex flex-row space-x-2">
               {dueDate && currentDate > dueDate &&
                 <Link
-                  href="/dashboard/perumahan/edit-unit"
+                  href="/dashboard/kontrakan/edit-unit"
                   className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
                 >
                   {" "}
@@ -145,7 +145,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
                 </Link>
               }
               <Link
-                href="/dashboard/perumahan/add"
+                href="/dashboard/kontrakan/add"
                 className=" p-2 rounded bg-red-500 text-center font-bold text-white hover:text-slate-200"
               >
                 {" "}
@@ -157,7 +157,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
         <div className="flex md:hidden flex-row justify-center space-x-2">
           {dueDate && currentDate > dueDate &&
               <Link
-                href="/dashboard/perumahan/edit-unit"
+                href="/dashboard/kontrakan/edit-unit"
                 className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
               >
                 {" "}
@@ -165,7 +165,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
               </Link>
             }
           <Link
-            href="/dashboard/perumahan/add"
+            href="/dashboard/kontrakan/add"
             className=" p-2 rounded bg-red-500 text-center font-bold text-white hover:text-slate-200"
           >
             {" "}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/hooks/useHooks";
+import { useAuth } from "@/contexts/useHooks";
 import { LoginRequest } from "@/modules/auth/models/login/login-request.model";
 import SideBanner from "@/modules/auth/presentations/components/side-banner";
 import InputComponentAuth from "@/modules/auth/presentations/register/form/input";

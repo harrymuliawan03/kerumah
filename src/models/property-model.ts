@@ -3,7 +3,7 @@ export type PropertyModel = {
   name: string;
   provinsi: string;
   kota: string;
-  kode_pos: number;
+  kode_pos: string;
   jml_unit: number;
   periode_pembayaran: "year" | "month";
   kode_unit: string;

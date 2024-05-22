@@ -1,4 +1,4 @@
-export type PerumahanResponse = {
+export type KontrakanResponse = {
   id: number;
   name: string;
   provinsi: string;
@@ -12,7 +12,7 @@ export type PerumahanResponse = {
   unit_filled: number;
 };
 
-export type UpdatePerumahanType = {
+export type UpdateKontrakanType = {
   name: string;
   provinsi: string;
   kota: string;
@@ -22,7 +22,7 @@ export type UpdatePerumahanType = {
   kode_unit: string;
 };
 
-export type CreatePerumahanType = {
+export type CreateKontrakanType = {
   name: string;
   alamat: string;
   provinsi: string;

@@ -65,9 +65,9 @@ export const postDataWithToken = async <T extends DataResponse>(
   });
   const resJson: HttpResponse<T> = await res.json();
 
-  if (resJson.details.status_code !== 200) {
-    HandleError(resJson.details.status_code);
-  }
+  // if (resJson.details.status_code !== 200) {
+  //   HandleError(resJson.details.status_code);
+  // }
 
   return resJson;
 };
@@ -165,9 +165,9 @@ export const deleteDataWithToken = async <T extends DataResponse>(
   const res: Response = await fetch(`${API_URL}${url}`, init);
   const resJson: HttpResponse<T> = await res.json();
 
-  if (resJson.details.status_code !== 200) {
-    HandleError(resJson.details.status_code);
-  }
+  // if (resJson.status_code !== 200) {
+  //   HandleError(resJson.details.status_code);
+  // }
 
   return resJson;
 };

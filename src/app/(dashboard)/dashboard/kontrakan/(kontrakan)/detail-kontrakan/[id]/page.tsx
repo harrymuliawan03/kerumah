@@ -1,35 +1,30 @@
 "use client";
 
-import CardProperti from "@/app/(dashboard)/components/CardProperti";
 import CardPropertiDetail from "@/app/(dashboard)/components/CardPropertiDetail";
 import WrapperDashboard from "@/app/(dashboard)/components/wrapper/WrapperDashboard";
 import GlobalAlert from "@/components/GlobalAlert";
 import { UnitModel } from "@/models/unit-model";
-import { PerumahanResponse } from "@/modules/perumahan/models/perumahan-model";
-import {
-  DeletePerumahanCase,
-  GetPerumahanByIdCase,
-  GetUnitsPerumahanCase,
-} from "@/modules/perumahan/usecases/perumahan/perumahan.usecase";
+import { KontrakanResponse } from "@/modules/kontrakan/models/kontrakan-model";
+import { DeleteKontrakanCase, GetKontrakanByIdCase, GetUnitsKontrakanCase } from "@/modules/kontrakan/usecases/kontrakan/kontrakan.usecase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa";
 
-export default function DetailPerumahanPage({
+export default function DetailKontrakanPage({
   params,
 }: {
   params: { id: number };
 }) {
   const router = useRouter();
 
-  const [data, setData] = useState<PerumahanResponse>();
+  const [data, setData] = useState<KontrakanResponse>();
   const [units, setUnits] = useState<UnitModel[]>();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 
-  const getPerumahan = async () => {
-    const res = await GetPerumahanByIdCase(params.id);
+  const getKontrakan = async () => {
+    const res = await GetKontrakanByIdCase(params.id);
 
     if (res.success) {
       setData(res.data!);
@@ -39,7 +34,7 @@ export default function DetailPerumahanPage({
   };
 
   const getUnits = async () => {
-    const res = await GetUnitsPerumahanCase(params.id);
+    const res = await GetUnitsKontrakanCase(params.id);
 
     if (res.success) {
       setUnits(res.data!);
@@ -50,10 +45,10 @@ export default function DetailPerumahanPage({
 
   const handleDelete = async () => {
     if(params?.id) {
-      const res = await DeletePerumahanCase(params?.id);
+      const res = await DeleteKontrakanCase(params?.id);
       if(res.success) {
         toast.success('Berhasil menghapus data');
-        router.push(`/dashboard/perumahan`)
+        router.push(`/dashboard/kontrakan`)
       }else{
         toast.error(res.message);
       }
@@ -61,7 +56,7 @@ export default function DetailPerumahanPage({
   }
 
   useEffect(() => {
-    getPerumahan().then(() => {
+    getKontrakan().then(() => {
       getUnits();
     });
   }, []);
@@ -88,9 +83,9 @@ export default function DetailPerumahanPage({
         </div>
         <div className="flex flex-row space-x-2">
           <button
-            // href={`/dashboard/perumahan/add-unit/${params.id}`}
+            // href={`/dashboard/Kontrakan/add-unit/${params.id}`}
             onClick={() => {
-              router.push(`/dashboard/perumahan/add-unit/${params.id}`)
+              router.push(`/dashboard/kontrakan/add-unit/${params.id}`)
             }}
             className=" p-2 rounded bg-green-500 text-center font-bold text-white mb-1 hover:text-slate-200"
           >
@@ -98,11 +93,11 @@ export default function DetailPerumahanPage({
             Tambah Unit +{" "}
           </button>
           <Link
-            href={`/dashboard/perumahan/edit-perumahan/${params.id}`}
+            href={`/dashboard/kontrakan/edit-kontrakan/${params.id}`}
             className=" p-2 rounded bg-blue-500 text-center font-bold text-white mb-1 hover:text-slate-200"
           >
             {" "}
-            Edit Perumahan{" "}
+            Edit Kontrakan{" "}
           </Link>
           <button
             className=" p-2 rounded bg-red-500 text-center font-bold text-white mb-1 hover:text-slate-200"
@@ -111,7 +106,7 @@ export default function DetailPerumahanPage({
             }}
           >
             {" "}
-            Hapus Perumahan{" "}
+            Hapus Kontrakan{" "}
           </button>
         </div>
       </div>
@@ -122,9 +117,9 @@ export default function DetailPerumahanPage({
             <CardPropertiDetail
               key={index}
               onClick={() => {
-                router.push(`/dashboard/perumahan/detail-unit/${item.id}`);
+                router.push(`/dashboard/kontrakan/detail-unit/${item.id}`);
               }}
-              type="Perumahan"
+              type="Kontrakan"
               data={item}
             />
           );

@@ -6,9 +6,9 @@ import { FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useHooks";
 import { LogoutCase } from "@/modules/auth/usecases/logout/logout-usecase";
 import toast from "react-hot-toast";
+import { useAuth } from "@/contexts/useHooks";
 // import Cookies from 'js-cookie';
 // import useLang from '@/store/lang/useLang';
 

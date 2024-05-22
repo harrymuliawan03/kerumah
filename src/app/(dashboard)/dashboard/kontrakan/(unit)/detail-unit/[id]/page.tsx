@@ -9,15 +9,14 @@ import { cities } from "@/constants/city";
 import { periode } from "@/constants/periode";
 import { provinces } from "@/constants/provinces";
 import { purchaseTypeData } from "@/constants/purchase_type";
-import { useDashboard } from "@/contexts/useHooks";
 import { UnitModel } from "@/models/unit-model";
-import { DeleteUnitPerumahanCase, GetUnitByIdCase } from "@/modules/perumahan/usecases/perumahan/perumahan.usecase";
+import { DeleteUnitKontrakanCase } from "@/modules/kontrakan/usecases/kontrakan/kontrakan.usecase";
+import { GetUnitByIdCase } from "@/modules/perumahan/usecases/perumahan/perumahan.usecase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa";
-import ReactModal from "react-modal";
 
 /* eslint-disable react/no-unescaped-entities */
 const DetailUnitPage = ({ params }: { params: { id: number } }) => {
@@ -44,6 +43,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
   const getUnit = async () => {
     const res = await GetUnitByIdCase(params.id);
 
+
     if (res.success) {
       handleFilterCity(res.data?.provinsi ?? '')
       const date = new Date(String(res.data?.tanggal_jatuh_tempo));
@@ -56,10 +56,10 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
 
   const handleDelete = async () => {
     if(unit?.id) {
-      const res = await DeleteUnitPerumahanCase(unit.id);
+      const res = await DeleteUnitKontrakanCase(unit.id);
       if(res.success) {
         toast.success('Berhasil menghapus data');
-        router.push(`/dashboard/perumahan/detail-perumahan/${unit.id_parent}`)
+        router.push(`/dashboard/kontrakan/detail-kontrakan/${unit.id_parent}`)
       }else{
         toast.error(res.message);
       }
@@ -90,7 +90,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
           <div className="absolute right-0 cursor-pointer">
             <div className="hidden md:flex flex-row space-x-2">
               <Link
-                href={`/dashboard/perumahan/edit-unit/${params.id}`}
+                href={`/dashboard/kontrakan/edit-unit/${params.id}`}
                 className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
               >
                 {" "}
@@ -98,7 +98,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
               </Link>
               {dueDate && currentDate > dueDate &&
                 <Link
-                  href="/dashboard/perumahan/edit-unit"
+                  href="/dashboard/kontrakan/edit-unit"
                   className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
                 >
                   {" "}
@@ -120,7 +120,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
         </div>
         <div className="flex md:hidden flex-row justify-center space-x-2">
           <Link
-            href="/dashboard/perumahan/edit-unit"
+            href="/dashboard/kontrakan/edit-unit"
             className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
           >
             {" "}
@@ -128,7 +128,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
           </Link>
           {dueDate && currentDate > dueDate &&
             <Link
-              href="/dashboard/perumahan/edit-unit"
+              href="/dashboard/kontrakan/edit-unit"
               className=" p-2 rounded bg-blue-500 text-center font-bold text-white hover:text-slate-200"
             >
               {" "}
@@ -136,7 +136,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
             </Link>
           }
           <Link
-            href="/dashboard/perumahan/add"
+            href="/dashboard/kontrakan/add"
             className=" p-2 rounded bg-red-500 text-center font-bold text-white hover:text-slate-200"
           >
             {" "}
@@ -157,7 +157,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
               data={periode}
               selected={unit?.periode_pembayaran ?? "year"}
               title="Periode Pembayaran"
-              value={unit?.provinsi ?? "Belum diisi"}
+              value={unit?.periode_pembayaran ?? "Belum diisi"}
               disabled
             />
           </div>

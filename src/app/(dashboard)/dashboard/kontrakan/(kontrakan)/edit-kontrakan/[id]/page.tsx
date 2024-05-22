@@ -3,28 +3,28 @@
 import WrapperDashboard from "@/app/(dashboard)/components/wrapper/WrapperDashboard";
 import InputComponent from "@/components/form/Input";
 import SelectComponent from "@/components/form/Select";
-import TextAreaComponent from "@/components/form/TextArea";
 import { periode } from "@/constants/periode";
 import { provinces } from "@/constants/provinces";
-import { UnitModel, UpdateUnitRequest, UpdateUnitType } from "@/models/unit-model";
-import { CreatePerumahanCase, GetUnitByIdCase, UpdateUnitCase } from "@/modules/perumahan/usecases/perumahan/perumahan.usecase";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { unitUpdateSchema } from "@/models/schema/unit-schema";
 import { cities } from "@/constants/city";
 import toast from "react-hot-toast";
-import { CreatePerumahanType } from "@/modules/perumahan/models/perumahan-model";
-import { PerumahanCreateSchema } from "@/modules/perumahan/models/schema";
+import { KontrakanResponse, UpdateKontrakanType } from "@/modules/kontrakan/models/kontrakan-model";
+import { GetKontrakanByIdCase, UpdateKontrakanCase } from "@/modules/kontrakan/usecases/kontrakan/kontrakan.usecase";
+import { KontrakanUpdateSchema } from "@/modules/kontrakan/models/schema";
 
 /* eslint-disable react/no-unescaped-entities */
-const AddPerumahanPage = () => {
+const EditKontrakanPage = ({ params }: { params: { id: number } }) => {
   const router = useRouter();
 
+  const [kontrakan, setKontrakan] = useState<KontrakanResponse>();
   const [kota, setKota] = useState<{id?: string, nama: string}[]>()
+  const [dueDate, setDueDate]= useState<Date>()
+  const [status, setStatus] = useState<"empty" | "filled" | "late">('empty');
+  const currentDate = new Date();
 
    const handleFilterCity = (prov: string) => {
     const filteredData = cities.find(item => item.provinsi.toLowerCase() == prov.toLocaleLowerCase());
@@ -37,17 +37,39 @@ const AddPerumahanPage = () => {
     setKota(filteredCity)
   };
 
-  const onSubmit = async (data: CreatePerumahanType) => {
 
-    const res = await CreatePerumahanCase(data)
+  const getUnit = async () => {
+  const res = await GetKontrakanByIdCase(params.id);
+
+    if (res.success) {
+        setKontrakan(res.data!);
+        setValue('name', res.data?.name ?? '')
+        setValue('provinsi', res.data?.provinsi ?? '')
+        setValue('kota', res.data?.kota ?? '')
+        setValue('kode_pos', res.data?.kode_pos ?? '')
+        setValue('periode_pembayaran', res.data!.periode_pembayaran)
+        setValue('jml_unit', res.data?.jml_unit ?? 0)
+        setValue('kode_unit', res.data?.kode_unit ?? '')
+        handleFilterCity(res.data?.provinsi ?? '')
+    } else {
+      setKontrakan(undefined);
+    }
+  };
+
+  const onSubmit = async (data: UpdateKontrakanType) => {
+
+    const res = await UpdateKontrakanCase(params.id, data)
     
     if(res.success){
-      toast.success("Berhasil membuat perumahan");
-      router.push('/dashboard/perumahan');
+      toast.success("Update Berhasil");
     }else{
-      toast.error("Gagal membuat perumahan");
+      toast.error("Update Gagal");
     }
   }
+
+  useEffect(() => {
+    getUnit();
+  }, []);
 
   const {
     control,
@@ -55,9 +77,9 @@ const AddPerumahanPage = () => {
     setValue,
     getValues,
     formState: { errors }
-  } = useForm<CreatePerumahanType>({
+  } = useForm<UpdateKontrakanType>({
     mode: 'all',
-    resolver: yupResolver(PerumahanCreateSchema)
+    resolver: yupResolver(KontrakanUpdateSchema)
   })
   
   return (
@@ -78,18 +100,17 @@ const AddPerumahanPage = () => {
               }}
             />
           </div>
-          <div className="flex flex-col justify-center items-center space-y-2">
-            <h1 className="font-bold text-2xl text-[#0D1857]">Tambah Perumahan</h1>
-          </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
-          <div className="w-full px-3 mb-6 md:mb-0">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <Controller
               name="name"
               control={control}
+              defaultValue={kontrakan?.name}
               render={({ field }) => (
                 <InputComponent
-                  title="Nama Perumahan"
+                  title="Nama Kontrakan"
+                  defaultValue={field.value ?? undefined}
                   onChange={(e) => {
                     const newValue = e.target.value;
                     field.onChange(newValue);
@@ -102,35 +123,83 @@ const AddPerumahanPage = () => {
               )}
             />
           </div>
-          <div className="w-full px-3 mb-6 md:mb-0">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <Controller
-              name="alamat"
-              control={control}
-              render={({ field }) => (
-                <TextAreaComponent 
-                  title="Alamat" 
-                  defaultValue={field.value ?? undefined} 
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    field.onChange(newValue);
-                  }}
-                  validate={{
-                    error: Boolean(errors.alamat),
-                    message: errors.alamat?.message ?? ''
-                  }} 
-                />
-              )}
-            />
+                name="kode_unit"
+                control={control}
+                defaultValue={kontrakan?.kode_unit}
+                render={({ field }) => (
+                  <InputComponent
+                    title="Kode Unit"
+                    defaultValue={field.value ?? undefined}
+                    onChange={(e) => {
+                      const newValue = e.target.value;
+                      field.onChange(newValue);
+                    }}
+                    validate={{
+                      error: Boolean(errors.kode_unit),
+                      message: errors.kode_unit?.message ?? ''
+                    }}
+                  />
+                  )}
+              />
           </div>
         </div>
+          <div className="flex flex-wrap -mx-3 mb-2">
+            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <Controller
+                name="jml_unit"
+                control={control}
+                defaultValue={kontrakan?.jml_unit}
+                render={({ field }) => (
+                  <InputComponent
+                    title="Jumlah Unit"
+                    defaultValue={field.value ?? undefined}
+                    onChange={(e) => {
+                      const newValue = e.target.value;
+                      field.onChange(newValue);
+                    }}
+                    validate={{
+                      error: Boolean(errors.jml_unit),
+                      message: errors.jml_unit?.message ?? ''
+                    }}
+                  />
+                )}
+              />
+            </div>
+            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <Controller
+                name="periode_pembayaran"
+                control={control}
+                defaultValue={kontrakan?.periode_pembayaran ?? "year"}
+                render={({ field }) => (
+                  <SelectComponent
+                    data={periode}
+                    selected={field.value ?? ''}
+                    title="Periode Pembayaran"
+                    defaultValue={kontrakan?.periode_pembayaran ?? "Belum diisi"}
+                    onChange={(e) => {
+                      const newValue = e.target.value;
+                      field.onChange(newValue);
+                    }}
+                    validate={{
+                      error: Boolean(errors.periode_pembayaran),
+                      message: errors.periode_pembayaran?.message ?? ''
+                    }}
+                  />
+                )}
+              />
+            </div>
+          </div>
             <div className="flex flex-wrap -mx-3 mb-2">
               <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                 <Controller
                   name="provinsi"
                   control={control}
+                  defaultValue={kontrakan?.provinsi ?? ""}
                   render={({ field }) => (
                     <SelectComponent
-                      selected={field.value ?? ''}
+                      selected={field.value.toUpperCase() ?? ''}
                       data={provinces}
                       title="Provinsi"
                       onChange={(e) => {
@@ -151,6 +220,7 @@ const AddPerumahanPage = () => {
                 <Controller
                   name="kota"
                   control={control}
+                  defaultValue={kontrakan?.kota ?? ""}
                   render={({ field }) => (
                     <SelectComponent
                       selected={field.value ?? ''}
@@ -172,6 +242,7 @@ const AddPerumahanPage = () => {
                 <Controller
                   name="kode_pos"
                   control={control}
+                  defaultValue={kontrakan?.kode_pos ?? undefined}
                   render={({ field }) => (
                     <InputComponent
                       title="Kode Pos"
@@ -189,80 +260,13 @@ const AddPerumahanPage = () => {
                 />
               </div>
             </div>
-              
-            <div className="flex flex-wrap justify-center -mx-3 mb-2">
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                <Controller
-                  name="jml_unit"
-                  control={control}
-                  render={({ field }) => (
-                    <InputComponent
-                      title="Jumlah Unit"
-                      defaultValue={field.value ?? undefined}
-                      type="number"
-                        onChange={(e) => {
-                          const newValue = e.target.value;
-                          field.onChange(newValue);
-                        }}
-                        validate={{
-                          error: Boolean(errors.jml_unit),
-                          message: errors.jml_unit?.message ?? ''
-                        }} 
-                      // disabled={unit?.tanggal_mulai != undefined}
-                    />
-                  )}
-                />
-              </div>
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <Controller
-              name="periode_pembayaran"
-              control={control}
-              render={({ field }) => (
-                <SelectComponent
-                  data={periode}
-                  selected={field.value ?? ''}
-                  title="Periode Pembayaran"
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    field.onChange(newValue);
-                  }}
-                  validate={{
-                    error: Boolean(errors.periode_pembayaran),
-                    message: errors.periode_pembayaran?.message ?? ''
-                  }}
-                />
-              )}
-            />
-          </div>
-              <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                <Controller
-                  name="kode_unit"
-                  control={control}
-                  render={({ field }) => (
-                    <InputComponent
-                      title="Kode Unit"
-                      defaultValue={field.value ?? undefined}
-                        onChange={(e) => {
-                          const newValue = e.target.value;
-                          field.onChange(newValue);
-                        }}
-                        validate={{
-                          error: Boolean(errors.kode_unit),
-                          message: errors.kode_unit?.message ?? ''
-                        }} 
-                      // disabled={unit?.tanggal_mulai != undefined}
-                    />
-                  )}
-                />
-              </div>
-            </div>
 
         <div className="flex w-full justify-center my-5 items-center space-x-5">
           <button
             className="py-2 px-3 rounded  text-white bg-blue-500 font-bold"
             type="submit"
           >
-            Simpan
+            Edit
           </button>
           <div
             className="py-2 px-3 rounded  text-white bg-red-500 font-bold cursor-pointer"
@@ -278,4 +282,4 @@ const AddPerumahanPage = () => {
   );
 };
 
-export default AddPerumahanPage;
+export default EditKontrakanPage;

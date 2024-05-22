@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 const defaultProvider: DashboardType = {
     isOpenModal: false,
     setIsOpenModal: () => Promise.resolve(),
+    onClick: null,
+    setOnClick: () => Promise.resolve(),
 };
 
 type Props = {
@@ -15,16 +17,23 @@ type Props = {
 
 const DashboardContext = createContext(defaultProvider);
 const DashboardProvider = ({ children }: Props) => {
-  const [isOpenModal, setIsOpenModal] = useState(defaultProvider.isOpenModal);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(defaultProvider.isOpenModal);
+  const [onClick, setOnClick] = useState<(() => void) | null>(defaultProvider.onClick)
+  const resetModal = () => {
+    setOnClick(null);
+    setIsOpenModal(false);
+  }
   const pathname = usePathname()
 
   useEffect(() => {
-    setIsOpenModal(false)
+    resetModal()
   }, [pathname])
 
   const values = {
     isOpenModal,
     setIsOpenModal,
+    onClick,
+    setOnClick,
   };
 
   return(
