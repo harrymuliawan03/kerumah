@@ -7,7 +7,7 @@ export type UnitModel = {
   type: string;
   status: "empty" | "filled" | "late";
   periode_pembayaran: "year" | "month";
-  purchase_type: 'sewa' | 'angsuran';
+  purchase_type: "sewa" | "angsuran";
   tenor: number | null;
   nama_penghuni: string | null;
   no_identitas: string | null;
@@ -51,4 +51,5 @@ export type CreateUnitRequest = {
   // kode_unit: string;
   id_parent: number;
   jumlah_unit: number;
-}
+  type: "perumahan" | "kontrakan" | "kostan";
+};

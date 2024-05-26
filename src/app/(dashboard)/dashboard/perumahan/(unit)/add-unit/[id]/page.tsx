@@ -12,22 +12,26 @@ import toast from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa";
 
 /* eslint-disable react/no-unescaped-entities */
-const AddUnitPage = ({params} : {params: {id: number}}) => {
+const AddUnitPage = ({ params }: { params: { id: number } }) => {
   const router = useRouter();
   const [jmlUnit, setJmlUnit] = useState<number>();
 
   const handleCreateUnit = async () => {
-    if(jmlUnit){
-      const res = await CreateUnitPerumahanCase({id_parent: params.id, jumlah_unit: jmlUnit})
-      if(res.success){
-        toast.success('Berhasil membuat unit')
-        router.push(`/dashboard/perumahan/detail-perumahan/${params.id}`)
-      }else{
-        toast.error('Gagal membuat unit')
+    if (jmlUnit) {
+      const res = await CreateUnitPerumahanCase({
+        id_parent: params.id,
+        jumlah_unit: jmlUnit,
+        type: "perumahan",
+      });
+      if (res.success) {
+        toast.success("Berhasil membuat unit");
+        router.push(`/dashboard/perumahan/detail-perumahan/${params.id}`);
+      } else {
+        toast.error("Gagal membuat unit");
       }
     }
-  }
-  
+  };
+
   return (
     <WrapperDashboard>
       <div className="w-full">

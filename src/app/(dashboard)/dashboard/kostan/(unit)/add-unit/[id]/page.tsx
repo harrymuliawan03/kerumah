@@ -2,7 +2,7 @@
 
 import WrapperDashboard from "@/app/(dashboard)/components/wrapper/WrapperDashboard";
 import InputComponent from "@/components/form/Input";
-import { CreateUnitKontrakanCase } from "@/modules/kontrakan/usecases/kontrakan/kontrakan.usecase";
+import { CreateUnitKostanCase } from "@/modules/kostan/usecases/kostan/kostan.usecase";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -15,14 +15,14 @@ const AddUnitPage = ({ params }: { params: { id: number } }) => {
 
   const handleCreateUnit = async () => {
     if (jmlUnit) {
-      const res = await CreateUnitKontrakanCase({
+      const res = await CreateUnitKostanCase({
         id_parent: params.id,
         jumlah_unit: jmlUnit,
-        type: "kontrakan",
+        type: "kostan",
       });
       if (res.success) {
         toast.success("Berhasil membuat unit");
-        router.push(`/dashboard/kontrakan/detail-kontrakan/${params.id}`);
+        router.push(`/dashboard/kostan/detail-kostan/${params.id}`);
       } else {
         toast.error("Gagal membuat unit");
       }
