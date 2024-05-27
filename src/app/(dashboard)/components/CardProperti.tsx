@@ -17,11 +17,12 @@ const CardProperti: React.FC<Props> = (props) => {
       onClick={() => props.onClick?.()}
     >
       <div className="relative">
-        <div className="w-full">
+        <div className="w-full h-72">
           <Image
             src="/assets/images/perumahan1.jpeg"
-            width={500}
-            height={70}
+            fill
+            // width={500}
+            // height={70}
             alt={props.type}
           />
           {/* <img
