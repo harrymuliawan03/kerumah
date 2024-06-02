@@ -2,9 +2,12 @@
 
 import WrapperDashboard from "@/app/(dashboard)/components/wrapper/WrapperDashboard";
 import InputComponent from "@/components/form/Input";
+import SelectComponent from "@/components/form/Select";
+import TextAreaComponent from "@/components/form/TextArea";
+import { provinces } from "@/constants/provinces";
 import { CreateUnitKontrakanCase } from "@/modules/kontrakan/usecases/kontrakan/kontrakan.usecase";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa";
 

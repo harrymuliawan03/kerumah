@@ -11,7 +11,6 @@ export default function LayoutDashboard(props: Props) {
     return(
         <DashboardProvider>
             <Nav />
-            <SideNav />
             {props.children}
         </DashboardProvider>
     )

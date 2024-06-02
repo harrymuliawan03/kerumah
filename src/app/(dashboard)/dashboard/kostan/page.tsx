@@ -36,7 +36,7 @@ export default function KostanPage() {
         </div>
         {/* <div className="text-[#041252] flex items-center pb-2 pr-2 border-b-2 border-[#041252] uppercase">
           <a href="#" className="font-semibold inline-block">
-            Kostan
+            Kontrakan
           </a>
         </div>
         <div className="text-[#041252] flex items-center pb-2 pr-2 border-b-2 border-[#041252] uppercase">

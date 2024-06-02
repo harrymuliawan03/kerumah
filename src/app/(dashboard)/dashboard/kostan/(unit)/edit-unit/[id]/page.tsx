@@ -6,7 +6,15 @@ import SelectComponent from "@/components/form/Select";
 import TextAreaComponent from "@/components/form/TextArea";
 import { periode } from "@/constants/periode";
 import { provinces } from "@/constants/provinces";
-import { UnitModel, UpdateUnitType } from "@/models/unit-model";
+import {
+  UnitModel,
+  UpdateUnitRequest,
+  UpdateUnitType,
+} from "@/models/unit-model";
+import {
+  GetUnitByIdCase,
+  UpdateUnitCase,
+} from "@/modules/kostan/usecases/kostan/kostan.usecase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,10 +25,6 @@ import { unitUpdateSchema } from "@/models/schema/unit-schema";
 import { cities } from "@/constants/city";
 import toast from "react-hot-toast";
 import { purchaseTypeData } from "@/constants/purchase_type";
-import {
-  GetUnitByIdCase,
-  UpdateUnitCase,
-} from "@/modules/kostan/usecases/kostan/kostan.usecase";
 
 /* eslint-disable react/no-unescaped-entities */
 const DetailUnitPage = ({ params }: { params: { id: number } }) => {
@@ -88,6 +92,7 @@ const DetailUnitPage = ({ params }: { params: { id: number } }) => {
 
     if (res.success) {
       toast.success("Update Berhasil");
+      router.push(`/dashboard/kostan/detail-unit/${params.id}`);
     } else {
       toast.error("Update Gagal");
     }

@@ -5,7 +5,7 @@ export type UnitModel = {
   user_id: number;
   id_parent: number;
   type: string;
-  status: "empty" | "filled" | "late";
+  status: "empty" | "filled" | "late" | "paid_off";
   periode_pembayaran: "year" | "month";
   purchase_type: "sewa" | "angsuran";
   tenor: number | null;
@@ -17,6 +17,8 @@ export type UnitModel = {
   kode_pos: string | null;
   tanggal_mulai: string | null;
   tanggal_jatuh_tempo: string | null;
+  angsuran_no: number | null;
+  tanggal_lunas: string | null;
 };
 
 export type UpdateUnitRequest = {

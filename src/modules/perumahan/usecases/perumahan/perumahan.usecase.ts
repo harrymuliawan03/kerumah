@@ -1,8 +1,18 @@
 import { ResponseUseCase } from "@/models/api-response-models";
-import { CreateUnitRequest, UnitModel, UpdateUnitRequest, UpdateUnitType } from "@/models/unit-model";
-import Cookies from "js-cookie";
-import { CreatePerumahanType, PerumahanResponse, UpdatePerumahanType } from "../../models/perumahan-model";
 import {
+  CreateUnitRequest,
+  UnitModel,
+  UpdateUnitRequest,
+  UpdateUnitType,
+} from "@/models/unit-model";
+import Cookies from "js-cookie";
+import {
+  CreatePerumahanType,
+  PerumahanResponse,
+  UpdatePerumahanType,
+} from "../../models/perumahan-model";
+import {
+  BayarUnitPerumahanRepo,
   CreatePerumahanRepo,
   CreateUnitPerumahanRepo,
   DeletePerumahanRepo,
@@ -106,9 +116,8 @@ export const UpdateUnitCase = async (
   };
 };
 
-
 export const DeleteUnitPerumahanCase = async (
-  id: number,
+  id: number
 ): Promise<ResponseUseCase<UnitModel>> => {
   const res = await DeleteUnitPerumahanRepo<UnitModel>(id);
   if (res?.success) {
@@ -143,7 +152,6 @@ export const CreateUnitPerumahanCase = async (
   };
 };
 
-
 export const UpdatePerumahanCase = async (
   id: number,
   body: UpdatePerumahanType
@@ -164,7 +172,7 @@ export const UpdatePerumahanCase = async (
 };
 
 export const DeletePerumahanCase = async (
-  id: number,
+  id: number
 ): Promise<ResponseUseCase<PerumahanResponse>> => {
   const res = await DeletePerumahanRepo<PerumahanResponse>(id);
   if (res?.success) {
@@ -185,6 +193,24 @@ export const CreatePerumahanCase = async (
   body: CreatePerumahanType
 ): Promise<ResponseUseCase<PerumahanResponse>> => {
   const res = await CreatePerumahanRepo<PerumahanResponse>(body);
+  if (res?.success) {
+    return {
+      success: true,
+      message: res?.message,
+      data: res?.data,
+    };
+  }
+  return {
+    success: false,
+    message: res?.message ?? "gagal mengambil data",
+    data: null,
+  };
+};
+
+export const BayarUnitPerumahanCase = async (
+  id: number
+): Promise<ResponseUseCase<PerumahanResponse>> => {
+  const res = await BayarUnitPerumahanRepo<PerumahanResponse>(id);
   if (res?.success) {
     return {
       success: true,

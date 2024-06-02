@@ -5,13 +5,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const SideNav: React.FC = () => {
+interface Props {
+  openSideBarMobile: boolean;
+}
+
+const SideNav: React.FC<Props> = (props: Props) => {
   const pathname = usePathname();
 
   return (
     <aside
       id="logo-sidebar"
-      className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
+      className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${
+        !props.openSideBarMobile && "-translate-x-full"
+      } bg-white border-r border-gray-200 sm:translate-x-0`}
       aria-label="Sidebar"
     >
       <div className="h-full px-3 pb-4 overflow-y-auto bg-white">
@@ -46,17 +52,17 @@ const SideNav: React.FC = () => {
                 "bg-gray-700 text-white"
               }`}
             >
-              <svg 
+              <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor" 
+                fill="currentColor"
                 className={`flex-shrink-0 w-5 h-5 text-gray-400 transition duration-75 group-hover:text-white dark:group-hover:text-white ${
-                  pathname.startsWith("/dashboard/perumahan") &&
-                  "text-white"
-                }`} 
-                viewBox="0 0 64 64">
+                  pathname.startsWith("/dashboard/perumahan") && "text-white"
+                }`}
+                viewBox="0 0 64 64"
+              >
                 <path d="M 32 3 L 1 28 L 1.4921875 28.654297 C 2.8591875 30.477297 5.4694688 30.791703 7.2304688 29.345703 L 32 9 L 56.769531 29.345703 C 58.530531 30.791703 61.140812 30.477297 62.507812 28.654297 L 63 28 L 54 20.742188 L 54 8 L 45 8 L 45 13.484375 L 32 3 z M 32 13 L 8 32 L 8 56 L 56 56 L 56 35 L 32 13 z M 26 34 L 38 34 L 38 52 L 26 52 L 26 34 z"></path>
-                </svg>
+              </svg>
               <span className="flex-1 ms-3 whitespace-nowrap">Perumahan</span>
               {/* <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span> */}
             </Link>
@@ -69,17 +75,17 @@ const SideNav: React.FC = () => {
                 "bg-gray-700 text-white"
               }`}
             >
-              <svg 
+              <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor" 
+                fill="currentColor"
                 className={`flex-shrink-0 w-5 h-5 text-gray-400 transition duration-75 group-hover:text-white dark:group-hover:text-white ${
-                  pathname.startsWith("/dashboard/kontrakan") &&
-                  "text-white"
-                }`} 
-                viewBox="0 0 64 64">
+                  pathname.startsWith("/dashboard/kontrakan") && "text-white"
+                }`}
+                viewBox="0 0 64 64"
+              >
                 <path d="M 32 3 L 1 28 L 1.4921875 28.654297 C 2.8591875 30.477297 5.4694688 30.791703 7.2304688 29.345703 L 32 9 L 56.769531 29.345703 C 58.530531 30.791703 61.140812 30.477297 62.507812 28.654297 L 63 28 L 54 20.742188 L 54 8 L 45 8 L 45 13.484375 L 32 3 z M 32 13 L 8 32 L 8 56 L 56 56 L 56 35 L 32 13 z M 26 34 L 38 34 L 38 52 L 26 52 L 26 34 z"></path>
-                </svg>
+              </svg>
               <span className="flex-1 ms-3 whitespace-nowrap">Kontrakan</span>
               {/* <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span> */}
             </Link>
@@ -92,17 +98,17 @@ const SideNav: React.FC = () => {
                 "bg-gray-700 text-white"
               }`}
             >
-              <svg 
+              <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor" 
+                fill="currentColor"
                 className={`flex-shrink-0 w-5 h-5 text-gray-400 transition duration-75 group-hover:text-white dark:group-hover:text-white ${
-                  pathname.startsWith("/dashboard/kostan") &&
-                  "text-white"
-                }`} 
-                viewBox="0 0 64 64">
+                  pathname.startsWith("/dashboard/kostan") && "text-white"
+                }`}
+                viewBox="0 0 64 64"
+              >
                 <path d="M 32 3 L 1 28 L 1.4921875 28.654297 C 2.8591875 30.477297 5.4694688 30.791703 7.2304688 29.345703 L 32 9 L 56.769531 29.345703 C 58.530531 30.791703 61.140812 30.477297 62.507812 28.654297 L 63 28 L 54 20.742188 L 54 8 L 45 8 L 45 13.484375 L 32 3 z M 32 13 L 8 32 L 8 56 L 56 56 L 56 35 L 32 13 z M 26 34 L 38 34 L 38 52 L 26 52 L 26 34 z"></path>
-                </svg>
+              </svg>
               <span className="flex-1 ms-3 whitespace-nowrap">Kostan</span>
               {/* <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span> */}
             </Link>
@@ -116,7 +122,15 @@ const SideNav: React.FC = () => {
               }`}
             >
               <div className="relative w-5 h-5">
-                <Image src={pathname.startsWith("/dashboard/pembayaran") ? `/assets/images/pay-light.png` : `/assets/images/pay-grey.png`} alt="" fill />
+                <Image
+                  src={
+                    pathname.startsWith("/dashboard/pembayaran")
+                      ? `/assets/images/pay-light.png`
+                      : `/assets/images/pay-grey.png`
+                  }
+                  alt=""
+                  fill
+                />
               </div>
               <span className="flex-1 ms-3 whitespace-nowrap">Pembayaran</span>
               {/* <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span> */}

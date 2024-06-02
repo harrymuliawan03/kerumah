@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function SideBanner() {
   return (
-    <div className="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
+    <div className="hidden md:flex items-center justify-center flex-1 bg-white text-black">
       <div className="max-w-md text-center">
         {/* Logo */}
         <Link href={"/"} className="flex justify-center items-center">

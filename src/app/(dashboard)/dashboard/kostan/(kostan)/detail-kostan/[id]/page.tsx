@@ -1,5 +1,6 @@
 "use client";
 
+import CardProperti from "@/app/(dashboard)/components/CardProperti";
 import CardPropertiDetail from "@/app/(dashboard)/components/CardPropertiDetail";
 import WrapperDashboard from "@/app/(dashboard)/components/wrapper/WrapperDashboard";
 import GlobalAlert from "@/components/GlobalAlert";
@@ -67,7 +68,7 @@ export default function DetailKostanPage({
 
   return (
     <WrapperDashboard>
-      <div className="border-b mb-5 flex justify-between text-sm">
+      <div className="border-b mb-5 flex flex-col md:flex-row justify-between text-sm">
         <div className="text-black flex items-center pb-2 pr-2  border-blue-600 uppercase">
           <div
             className="absolute left-0 cursor-pointer"
@@ -85,24 +86,24 @@ export default function DetailKostanPage({
         </div>
         <div className="flex flex-row space-x-2">
           <button
-            // href={`/dashboard/Kostan/add-unit/${params.id}`}
+            // href={`/dashboard/kostan/add-unit/${params.id}`}
             onClick={() => {
               router.push(`/dashboard/kostan/add-unit/${params.id}`);
             }}
-            className=" p-2 rounded bg-green-500 text-center font-bold text-white mb-1 hover:text-slate-200"
+            className="p-1 md:p-2 rounded bg-green-500 text-center font-bold text-white mb-1 hover:text-slate-200"
           >
             {" "}
-            Tambah Unit +{" "}
+            Tambah Unit{" "}
           </button>
           <Link
-            href={`/dashboard/kostan/edit-Kostan/${params.id}`}
-            className=" p-2 rounded bg-blue-500 text-center font-bold text-white mb-1 hover:text-slate-200"
+            href={`/dashboard/kostan/edit-kostan/${params.id}`}
+            className="p-1 md:p-2 rounded bg-blue-500 text-center font-bold text-white mb-1 hover:text-slate-200"
           >
             {" "}
             Edit Kostan{" "}
           </Link>
           <button
-            className=" p-2 rounded bg-red-500 text-center font-bold text-white mb-1 hover:text-slate-200"
+            className="p-1 md:p-2 rounded bg-red-500 text-center font-bold text-white mb-1 hover:text-slate-200"
             onClick={() => {
               setIsOpenModal(true);
             }}
@@ -113,7 +114,7 @@ export default function DetailKostanPage({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 mx-52">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:mx-52">
         {units?.map((item, index) => {
           return (
             <CardPropertiDetail

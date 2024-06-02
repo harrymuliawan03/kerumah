@@ -1,8 +1,29 @@
 import { ResponseUseCase } from "@/models/api-response-models";
-import { CreateUnitRequest, UnitModel, UpdateUnitRequest, UpdateUnitType } from "@/models/unit-model";
+import {
+  CreateUnitRequest,
+  UnitModel,
+  UpdateUnitRequest,
+  UpdateUnitType,
+} from "@/models/unit-model";
 import Cookies from "js-cookie";
-import { CreateKontrakanType, KontrakanResponse, UpdateKontrakanType } from "../../models/kontrakan-model";
-import { CreateKontrakanRepo, CreateUnitKontrakanRepo, DeleteKontrakanRepo, DeleteUnitKontrakanRepo, GetKontrakanByIdRepo, GetKontrakanRepo, GetUnitsByIdRepo, GetUnitsKontrakanRepo, UpdateKontrakanRepo, UpdateUnitRepo } from "../../repositories/kontrakan/kontrakan.repository";
+import {
+  CreateKontrakanType,
+  KontrakanResponse,
+  UpdateKontrakanType,
+} from "../../models/kontrakan-model";
+import {
+  BayarUnitKontrakanRepo,
+  CreateKontrakanRepo,
+  CreateUnitKontrakanRepo,
+  DeleteKontrakanRepo,
+  DeleteUnitKontrakanRepo,
+  GetKontrakanByIdRepo,
+  GetKontrakanRepo,
+  GetUnitsByIdRepo,
+  GetUnitsKontrakanRepo,
+  UpdateKontrakanRepo,
+  UpdateUnitRepo,
+} from "../../repositories/kontrakan/kontrakan.repository";
 
 export const GetKontrakanCase = async (): Promise<
   ResponseUseCase<KontrakanResponse[]>
@@ -95,9 +116,8 @@ export const UpdateUnitCase = async (
   };
 };
 
-
 export const DeleteUnitKontrakanCase = async (
-  id: number,
+  id: number
 ): Promise<ResponseUseCase<UnitModel>> => {
   const res = await DeleteUnitKontrakanRepo<UnitModel>(id);
   if (res?.success) {
@@ -132,7 +152,6 @@ export const CreateUnitKontrakanCase = async (
   };
 };
 
-
 export const UpdateKontrakanCase = async (
   id: number,
   body: UpdateKontrakanType
@@ -153,7 +172,7 @@ export const UpdateKontrakanCase = async (
 };
 
 export const DeleteKontrakanCase = async (
-  id: number,
+  id: number
 ): Promise<ResponseUseCase<KontrakanResponse>> => {
   const res = await DeleteKontrakanRepo<KontrakanResponse>(id);
   if (res?.success) {
@@ -174,6 +193,24 @@ export const CreateKontrakanCase = async (
   body: CreateKontrakanType
 ): Promise<ResponseUseCase<KontrakanResponse>> => {
   const res = await CreateKontrakanRepo<KontrakanResponse>(body);
+  if (res?.success) {
+    return {
+      success: true,
+      message: res?.message,
+      data: res?.data,
+    };
+  }
+  return {
+    success: false,
+    message: res?.message ?? "gagal mengambil data",
+    data: null,
+  };
+};
+
+export const BayarUnitKontrakanCase = async (
+  id: number
+): Promise<ResponseUseCase<KontrakanResponse>> => {
+  const res = await BayarUnitKontrakanRepo<KontrakanResponse>(id);
   if (res?.success) {
     return {
       success: true,

@@ -6,15 +6,26 @@ import SelectComponent from "@/components/form/Select";
 import TextAreaComponent from "@/components/form/TextArea";
 import { periode } from "@/constants/periode";
 import { provinces } from "@/constants/provinces";
+import {
+  UnitModel,
+  UpdateUnitRequest,
+  UpdateUnitType,
+} from "@/models/unit-model";
+import {
+  CreateKostanCase,
+  GetUnitByIdCase,
+  UpdateUnitCase,
+} from "@/modules/kostan/usecases/kostan/kostan.usecase";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { unitUpdateSchema } from "@/models/schema/unit-schema";
 import { cities } from "@/constants/city";
 import toast from "react-hot-toast";
 import { CreateKostanType } from "@/modules/kostan/models/kostan-model";
-import { CreateKostanCase } from "@/modules/kostan/usecases/kostan/kostan.usecase";
 import { KostanCreateSchema } from "@/modules/kostan/models/schema";
 
 /* eslint-disable react/no-unescaped-entities */
@@ -40,10 +51,10 @@ const AddKostanPage = () => {
     const res = await CreateKostanCase(data);
 
     if (res.success) {
-      toast.success("Berhasil membuat Kostan");
+      toast.success("Berhasil membuat kostan");
       router.push("/dashboard/kostan");
     } else {
-      toast.error("Gagal membuat Kostan");
+      toast.error("Gagal membuat kostan");
     }
   };
 

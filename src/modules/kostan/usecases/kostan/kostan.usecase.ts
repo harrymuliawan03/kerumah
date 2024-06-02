@@ -12,6 +12,7 @@ import {
   UpdateKostanType,
 } from "../../models/kostan-model";
 import {
+  BayarUnitKostanRepo,
   CreateKostanRepo,
   CreateUnitKostanRepo,
   DeleteKostanRepo,
@@ -192,6 +193,24 @@ export const CreateKostanCase = async (
   body: CreateKostanType
 ): Promise<ResponseUseCase<KostanResponse>> => {
   const res = await CreateKostanRepo<KostanResponse>(body);
+  if (res?.success) {
+    return {
+      success: true,
+      message: res?.message,
+      data: res?.data,
+    };
+  }
+  return {
+    success: false,
+    message: res?.message ?? "gagal mengambil data",
+    data: null,
+  };
+};
+
+export const BayarUnitKostanCase = async (
+  id: number
+): Promise<ResponseUseCase<KostanResponse>> => {
+  const res = await BayarUnitKostanRepo<KostanResponse>(id);
   if (res?.success) {
     return {
       success: true,

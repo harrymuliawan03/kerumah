@@ -87,3 +87,14 @@ export const CreateKostanRepo = async <T extends DataResponse>(
 
   return res;
 };
+
+export const BayarUnitKostanRepo = async <T extends DataResponse>(
+  id: number
+) => {
+  const res: HttpResponse<T> = await postDataWithToken(
+    `/unit-payment/${id}`,
+    null
+  );
+
+  return res;
+};

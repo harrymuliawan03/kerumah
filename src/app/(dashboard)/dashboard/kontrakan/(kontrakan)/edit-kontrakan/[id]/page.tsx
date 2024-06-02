@@ -3,17 +3,29 @@
 import WrapperDashboard from "@/app/(dashboard)/components/wrapper/WrapperDashboard";
 import InputComponent from "@/components/form/Input";
 import SelectComponent from "@/components/form/Select";
+import TextAreaComponent from "@/components/form/TextArea";
 import { periode } from "@/constants/periode";
 import { provinces } from "@/constants/provinces";
+import { UpdateUnitType } from "@/models/unit-model";
+import {
+  GetKontrakanByIdCase,
+  GetUnitByIdCase,
+  UpdateKontrakanCase,
+  UpdateUnitCase,
+} from "@/modules/kontrakan/usecases/kontrakan/kontrakan.usecase";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { unitUpdateSchema } from "@/models/schema/unit-schema";
 import { cities } from "@/constants/city";
 import toast from "react-hot-toast";
-import { KontrakanResponse, UpdateKontrakanType } from "@/modules/kontrakan/models/kontrakan-model";
-import { GetKontrakanByIdCase, UpdateKontrakanCase } from "@/modules/kontrakan/usecases/kontrakan/kontrakan.usecase";
+import {
+  KontrakanResponse,
+  UpdateKontrakanType,
+} from "@/modules/kontrakan/models/kontrakan-model";
 import { KontrakanUpdateSchema } from "@/modules/kontrakan/models/schema";
 
 /* eslint-disable react/no-unescaped-entities */
@@ -21,51 +33,51 @@ const EditKontrakanPage = ({ params }: { params: { id: number } }) => {
   const router = useRouter();
 
   const [kontrakan, setKontrakan] = useState<KontrakanResponse>();
-  const [kota, setKota] = useState<{id?: string, nama: string}[]>()
-  const [dueDate, setDueDate]= useState<Date>()
-  const [status, setStatus] = useState<"empty" | "filled" | "late">('empty');
+  const [kota, setKota] = useState<{ id?: string; nama: string }[]>();
+  const [dueDate, setDueDate] = useState<Date>();
+  const [status, setStatus] = useState<"empty" | "filled" | "late">("empty");
   const currentDate = new Date();
 
-   const handleFilterCity = (prov: string) => {
-    const filteredData = cities.find(item => item.provinsi.toLowerCase() == prov.toLocaleLowerCase());
+  const handleFilterCity = (prov: string) => {
+    const filteredData = cities.find(
+      (item) => item.provinsi.toLowerCase() == prov.toLocaleLowerCase()
+    );
 
     const filteredCity = filteredData?.kota.map((kota, index) => ({
       id: String(index + 1),
-      nama: kota
+      nama: kota,
     }));
-    
-    setKota(filteredCity)
+
+    setKota(filteredCity);
   };
 
-
   const getUnit = async () => {
-  const res = await GetKontrakanByIdCase(params.id);
+    const res = await GetKontrakanByIdCase(params.id);
 
     if (res.success) {
-        setKontrakan(res.data!);
-        setValue('name', res.data?.name ?? '')
-        setValue('provinsi', res.data?.provinsi ?? '')
-        setValue('kota', res.data?.kota ?? '')
-        setValue('kode_pos', res.data?.kode_pos ?? '')
-        setValue('periode_pembayaran', res.data!.periode_pembayaran)
-        setValue('jml_unit', res.data?.jml_unit ?? 0)
-        setValue('kode_unit', res.data?.kode_unit ?? '')
-        handleFilterCity(res.data?.provinsi ?? '')
+      setKontrakan(res.data!);
+      setValue("name", res.data?.name ?? "");
+      setValue("provinsi", res.data?.provinsi ?? "");
+      setValue("kota", res.data?.kota ?? "");
+      setValue("kode_pos", res.data?.kode_pos ?? "");
+      setValue("periode_pembayaran", res.data!.periode_pembayaran);
+      setValue("jml_unit", res.data?.jml_unit ?? 0);
+      setValue("kode_unit", res.data?.kode_unit ?? "");
+      handleFilterCity(res.data?.provinsi ?? "");
     } else {
       setKontrakan(undefined);
     }
   };
 
   const onSubmit = async (data: UpdateKontrakanType) => {
+    const res = await UpdateKontrakanCase(params.id, data);
 
-    const res = await UpdateKontrakanCase(params.id, data)
-    
-    if(res.success){
+    if (res.success) {
       toast.success("Update Berhasil");
-    }else{
+    } else {
       toast.error("Update Gagal");
     }
-  }
+  };
 
   useEffect(() => {
     getUnit();
@@ -76,17 +88,15 @@ const EditKontrakanPage = ({ params }: { params: { id: number } }) => {
     handleSubmit,
     setValue,
     getValues,
-    formState: { errors }
+    formState: { errors },
   } = useForm<UpdateKontrakanType>({
-    mode: 'all',
-    resolver: yupResolver(KontrakanUpdateSchema)
-  })
-  
+    mode: "all",
+    resolver: yupResolver(KontrakanUpdateSchema),
+  });
+
   return (
     <WrapperDashboard>
-      <form className="w-full" 
-            onSubmit={handleSubmit(onSubmit)}
-          >
+      <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="relative flex justify-center items-center w-full mb-4 md:mb-10">
           <div
             className="absolute left-0 cursor-pointer z-10"
@@ -103,7 +113,7 @@ const EditKontrakanPage = ({ params }: { params: { id: number } }) => {
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <Controller
+            <Controller
               name="name"
               control={control}
               defaultValue={kontrakan?.name}
@@ -117,7 +127,7 @@ const EditKontrakanPage = ({ params }: { params: { id: number } }) => {
                   }}
                   validate={{
                     error: Boolean(errors.name),
-                    message: errors.name?.message ?? ''
+                    message: errors.name?.message ?? "",
                   }}
                 />
               )}
@@ -125,141 +135,141 @@ const EditKontrakanPage = ({ params }: { params: { id: number } }) => {
           </div>
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <Controller
-                name="kode_unit"
-                control={control}
-                defaultValue={kontrakan?.kode_unit}
-                render={({ field }) => (
-                  <InputComponent
-                    title="Kode Unit"
-                    defaultValue={field.value ?? undefined}
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      field.onChange(newValue);
-                    }}
-                    validate={{
-                      error: Boolean(errors.kode_unit),
-                      message: errors.kode_unit?.message ?? ''
-                    }}
-                  />
-                  )}
-              />
+              name="kode_unit"
+              control={control}
+              defaultValue={kontrakan?.kode_unit}
+              render={({ field }) => (
+                <InputComponent
+                  title="Kode Unit"
+                  defaultValue={field.value ?? undefined}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    field.onChange(newValue);
+                  }}
+                  validate={{
+                    error: Boolean(errors.kode_unit),
+                    message: errors.kode_unit?.message ?? "",
+                  }}
+                />
+              )}
+            />
           </div>
         </div>
-          <div className="flex flex-wrap -mx-3 mb-2">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <Controller
-                name="jml_unit"
-                control={control}
-                defaultValue={kontrakan?.jml_unit}
-                render={({ field }) => (
-                  <InputComponent
-                    title="Jumlah Unit"
-                    defaultValue={field.value ?? undefined}
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      field.onChange(newValue);
-                    }}
-                    validate={{
-                      error: Boolean(errors.jml_unit),
-                      message: errors.jml_unit?.message ?? ''
-                    }}
-                  />
-                )}
-              />
-            </div>
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <Controller
-                name="periode_pembayaran"
-                control={control}
-                defaultValue={kontrakan?.periode_pembayaran ?? "year"}
-                render={({ field }) => (
-                  <SelectComponent
-                    data={periode}
-                    selected={field.value ?? ''}
-                    title="Periode Pembayaran"
-                    defaultValue={kontrakan?.periode_pembayaran ?? "Belum diisi"}
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      field.onChange(newValue);
-                    }}
-                    validate={{
-                      error: Boolean(errors.periode_pembayaran),
-                      message: errors.periode_pembayaran?.message ?? ''
-                    }}
-                  />
-                )}
-              />
-            </div>
+        <div className="flex flex-wrap -mx-3 mb-2">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <Controller
+              name="jml_unit"
+              control={control}
+              defaultValue={kontrakan?.jml_unit}
+              render={({ field }) => (
+                <InputComponent
+                  title="Jumlah Unit"
+                  defaultValue={field.value ?? undefined}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    field.onChange(newValue);
+                  }}
+                  validate={{
+                    error: Boolean(errors.jml_unit),
+                    message: errors.jml_unit?.message ?? "",
+                  }}
+                />
+              )}
+            />
           </div>
-            <div className="flex flex-wrap -mx-3 mb-2">
-              <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                <Controller
-                  name="provinsi"
-                  control={control}
-                  defaultValue={kontrakan?.provinsi ?? ""}
-                  render={({ field }) => (
-                    <SelectComponent
-                      selected={field.value.toUpperCase() ?? ''}
-                      data={provinces}
-                      title="Provinsi"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        field.onChange(newValue);
-                        handleFilterCity(newValue)
-                        setValue('kota', '')
-                      }}
-                      validate={{
-                        error: Boolean(errors.provinsi),
-                        message: errors.provinsi?.message ?? ''
-                      }} 
-                    />
-                  )}
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <Controller
+              name="periode_pembayaran"
+              control={control}
+              defaultValue={kontrakan?.periode_pembayaran ?? "year"}
+              render={({ field }) => (
+                <SelectComponent
+                  data={periode}
+                  selected={field.value ?? ""}
+                  title="Periode Pembayaran"
+                  defaultValue={kontrakan?.periode_pembayaran ?? "Belum diisi"}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    field.onChange(newValue);
+                  }}
+                  validate={{
+                    error: Boolean(errors.periode_pembayaran),
+                    message: errors.periode_pembayaran?.message ?? "",
+                  }}
                 />
-              </div>
-              <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                <Controller
-                  name="kota"
-                  control={control}
-                  defaultValue={kontrakan?.kota ?? ""}
-                  render={({ field }) => (
-                    <SelectComponent
-                      selected={field.value ?? ''}
-                      data={kota ?? []}
-                      title="Kota"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        field.onChange(newValue);
-                      }}
-                      validate={{
-                        error: Boolean(errors.kota),
-                        message: errors.kota?.message ?? ''
-                      }} 
-                    />
-                  )}
+              )}
+            />
+          </div>
+        </div>
+        <div className="flex flex-wrap -mx-3 mb-2">
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <Controller
+              name="provinsi"
+              control={control}
+              defaultValue={kontrakan?.provinsi ?? ""}
+              render={({ field }) => (
+                <SelectComponent
+                  selected={field.value.toUpperCase() ?? ""}
+                  data={provinces}
+                  title="Provinsi"
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    field.onChange(newValue);
+                    handleFilterCity(newValue);
+                    setValue("kota", "");
+                  }}
+                  validate={{
+                    error: Boolean(errors.provinsi),
+                    message: errors.provinsi?.message ?? "",
+                  }}
                 />
-              </div>
-              <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                <Controller
-                  name="kode_pos"
-                  control={control}
-                  defaultValue={kontrakan?.kode_pos ?? undefined}
-                  render={({ field }) => (
-                    <InputComponent
-                      title="Kode Pos"
-                      defaultValue={field.value ?? undefined}
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        field.onChange(newValue);
-                      }}
-                      validate={{
-                        error: Boolean(errors.kode_pos),
-                        message: errors.kode_pos?.message ?? ''
-                      }} 
-                    />
-                  )}
+              )}
+            />
+          </div>
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <Controller
+              name="kota"
+              control={control}
+              defaultValue={kontrakan?.kota ?? ""}
+              render={({ field }) => (
+                <SelectComponent
+                  selected={field.value ?? ""}
+                  data={kota ?? []}
+                  title="Kota"
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    field.onChange(newValue);
+                  }}
+                  validate={{
+                    error: Boolean(errors.kota),
+                    message: errors.kota?.message ?? "",
+                  }}
                 />
-              </div>
-            </div>
+              )}
+            />
+          </div>
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <Controller
+              name="kode_pos"
+              control={control}
+              defaultValue={kontrakan?.kode_pos ?? undefined}
+              render={({ field }) => (
+                <InputComponent
+                  title="Kode Pos"
+                  defaultValue={field.value ?? undefined}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    field.onChange(newValue);
+                  }}
+                  validate={{
+                    error: Boolean(errors.kode_pos),
+                    message: errors.kode_pos?.message ?? "",
+                  }}
+                />
+              )}
+            />
+          </div>
+        </div>
 
         <div className="flex w-full justify-center my-5 items-center space-x-5">
           <button
