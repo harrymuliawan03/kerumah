@@ -48,7 +48,7 @@ const CardPropertiDetail: React.FC<Props> = (props) => {
                     Tenor : {props.data.tenor}
                   </p>
                 )}
-                {props.data.angsuran_no && (
+                {props.data.angsuran_no != 0 && (
                   <p className="p-1 bg-blue-500 text-white rounded-xl justify-self-end">
                     Angsuran ke : {props.data.angsuran_no}
                   </p>

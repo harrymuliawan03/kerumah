@@ -114,7 +114,7 @@ export default function DetailPerumahanPage({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:mx-52">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:mx-10">
         {units?.map((item, index) => {
           return (
             <CardPropertiDetail

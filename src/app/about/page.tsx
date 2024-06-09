@@ -1,8 +1,10 @@
 "use client";
 
 import WrapperPage from "@/components/wrapper/WrapperPage";
+import { useAuth } from "@/contexts/useHooks";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function AboutPage() {
@@ -12,6 +14,8 @@ export default function AboutPage() {
       once: false,
     });
   }, []);
+  const {user} = useAuth();
+  const router = useRouter();
   return (
     <WrapperPage>
       <div className="bg-white">
@@ -40,7 +44,13 @@ export default function AboutPage() {
                 data-aos-delay="700"
                 className="w-full md:flex items-center justify-center lg:justify-start md:space-x-5"
               >
-                <button className="lg:mx-0 bg-yellow-500 text-white text-xl font-bold rounded-full py-4 px-9 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out">
+                <button className="lg:mx-0 bg-yellow-500 text-white text-xl font-bold rounded-full py-4 px-9 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out" onClick={() => {
+                    if(!user){
+                      router.push("/login")
+                    }else{
+                      router.push("/dashboard");
+                    }
+                  }}>
                   Bergabung
                 </button>
                 {/* <div className="flex items-center justify-center space-x-3 mt-5 md:mt-0 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out">
@@ -595,7 +605,13 @@ export default function AboutPage() {
                 ??
               </h1>
               <p className="text-gray-500 my-4 lg:pr-32"></p>
-              <button className="lg:mx-0 bg-yellow-500 mt-10 text-white text-xl font-bold rounded-full py-4 px-9 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out">
+              <button className="lg:mx-0 bg-yellow-500 mt-10 text-white text-xl font-bold rounded-full py-4 px-9 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out" onClick={() => {
+                    if(!user){
+                      router.push("/login")
+                    }else{
+                      router.push("/dashboard");
+                    }
+                  }}>
                 Bergabung Sekarang
               </button>
             </div>

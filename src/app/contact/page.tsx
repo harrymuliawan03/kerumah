@@ -67,8 +67,9 @@ export default function ContactPage() {
                 </div>
                 <div className="md:mb-12 lg:mb-0">
                   <div className="relative h-[700px] rounded-lg shadow-lg dark:shadow-black/20">
+                  {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.4347641394193!2d107.01307982482896!3d-6.206241743781577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698951a1c56c9f%3A0xba614a42161711ad!2sBSI%20Square%20Kaliabang!5e0!3m2!1sen!2sid!4v1717943174242!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.8714196774918!2d106.72522017474991!3d-6.147965993839054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f7f9c2193b8f%3A0x35a5f461eaf5e449!2sBSI%20Cengkareng!5e0!3m2!1sid!2sid!4v1712384421248!5m2!1sid!2sid"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.4347641394193!2d107.01307982482896!3d-6.206241743781577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698951a1c56c9f%3A0xba614a42161711ad!2sBSI%20Square%20Kaliabang!5e0!3m2!1sen!2sid!4v1717943174242!5m2!1sen!2sid"
                       className="absolute left-0 top-0 h-full w-full rounded-lg border-0"
                       allowFullScreen
                     ></iframe>

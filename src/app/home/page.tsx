@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import Testimonial from "./components/Testimonial";
 import WrapperPage from "@/components/wrapper/WrapperPage";
+import { useAuth } from "@/contexts/useHooks";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const settings = {
@@ -19,6 +21,9 @@ export default function HomePage() {
     arrows: false,
     className: "padding: 0;",
   };
+
+  const {user} = useAuth();
+  const router = useRouter();
 
   return (
     <WrapperPage>
@@ -44,10 +49,16 @@ export default function HomePage() {
               <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
                 <a
                   // href="#"
-                  onClick={() => toast("Here is your toast.")}
-                  className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                  onClick={() => {
+                    if(!user){
+                      router.push("/login")
+                    }else{
+                      router.push("/dashboard");
+                    }
+                  }}
+                  className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 cursor-pointer"
                 >
-                  Get started
+                  Mulai Sekarang
                   <svg
                     className="w-3.5 h-3.5 ms-2 rtl:rotate-180"
                     aria-hidden="true"
@@ -64,12 +75,12 @@ export default function HomePage() {
                     />
                   </svg>
                 </a>
-                <a
+                {/* <a
                   href="#"
                   className="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
                 >
                   Learn more
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -122,16 +133,16 @@ export default function HomePage() {
         <div className="w-full py-10 flex">
           <div className="flex flex-row justify-between basis-3/4 mx-auto">
             <div className="flex flex-col justify-center items-center space-y-5">
-              <p className="text-5xl text-[#484bb4] font-bold">56639</p>
-              <p className="font-semibold text-xl">Logo yang Dibuat</p>
+              <p className="text-5xl text-[#484bb4] font-bold">5.637</p>
+              <p className="font-semibold text-xl">Perumahan</p>
             </div>
             <div className="flex flex-col justify-center items-center space-y-5">
-              <p className="text-5xl text-[#484bb4] font-bold">56639</p>
-              <p className="font-semibold text-xl">Logo yang Dibuat</p>
+              <p className="text-5xl text-[#484bb4] font-bold">3.420</p>
+              <p className="font-semibold text-xl">Kontrakan</p>
             </div>
             <div className="flex flex-col justify-center items-center space-y-5">
-              <p className="text-5xl text-[#484bb4] font-bold">56639</p>
-              <p className="font-semibold text-xl">Logo yang Dibuat</p>
+              <p className="text-5xl text-[#484bb4] font-bold">4.902</p>
+              <p className="font-semibold text-xl">Kostan</p>
             </div>
           </div>
         </div>
@@ -166,7 +177,7 @@ export default function HomePage() {
           </div>
 
           <div className="my-2 text-lg">
-            <p>Dinilai 4,7 / 5 berdasarkan 2048 ulasan pelanggan</p>
+            <p>Dinilai 4,8 / 5 berdasarkan 2048 ulasan pelanggan</p>
           </div>
 
           <div className="container mt-24 mx-auto md:px-6">
@@ -228,9 +239,7 @@ export default function HomePage() {
                 <div className="p-6">
                   <h5 className="mb-4 text-lg font-bold">Perumahan</h5>
                   <p className="mb-6">
-                    Ut pretium ultricies dignissim. Sed sit amet mi eget urna
-                    placerat vulputate. Ut vulputate est non quam dignissim
-                    elementum. Donec a ullamcorper diam.
+                  Perumahan adalah suatu kawasan atau area yang didesain dan dibangun untuk dihuni oleh sejumlah keluarga atau individu. Biasanya terdiri dari sejumlah rumah atau unit tempat tinggal yang berjejer atau terkumpul dalam suatu lingkungan yang terorganisir. Perumahan dapat beragam, mulai dari rumah-rumah di pinggiran kota hingga kompleks perumahan dengan fasilitas lengkap seperti taman, area olahraga, dan pusat perbelanjaan.
                   </p>
                   <a
                     href="#!"
@@ -264,9 +273,7 @@ export default function HomePage() {
                 <div className="p-6">
                   <h5 className="mb-4 text-lg font-bold">Kontrakan</h5>
                   <p className="mb-6">
-                    Suspendisse in volutpat massa. Nulla facilisi. Sed aliquet
-                    diam orci, nec ornare metus semper sed. Integer volutpat
-                    ornare erat sit amet rutrum.
+                  Kontrakan adalah unit-unit tempat tinggal yang disewakan kepada penyewa untuk jangka waktu tertentu. Biasanya, kontrakan terdiri dari beberapa unit rumah atau apartemen yang berdiri sendiri atau tergabung dalam suatu bangunan. Kontrakan dapat beragam dalam ukuran dan fasilitasnya, mulai dari unit sederhana dengan fasilitas dasar hingga yang lebih lengkap dengan fasilitas tambahan seperti taman atau tempat parkir.
                   </p>
                   <a
                     href="#!"
@@ -300,9 +307,7 @@ export default function HomePage() {
                 <div className="p-6">
                   <h5 className="mb-4 text-lg font-bold">Kostan</h5>
                   <p className="mb-6">
-                    Curabitur tristique, mi a mollis sagittis, metus felis
-                    mattis arcu, non vehicula nisl dui quis diam. Mauris ut
-                    risus eget massa volutpat feugiat. Donec.
+                  Kostan (kost-kostan) adalah unit-unit tempat tinggal yang disewakan secara individu kepada penyewa untuk jangka waktu tertentu. Biasanya, kostan terdiri dari kamar-kamar yang relatif kecil dan sederhana, yang seringkali berbagi fasilitas seperti kamar mandi, dapur, atau ruang tamu dengan penyewa lainnya. Kostan umumnya cocok untuk mahasiswa, pekerja, atau pendatang yang membutuhkan tempat tinggal sementara dengan biaya sewa yang lebih terjangkau.
                   </p>
                   <a
                     href="#!"
